@@ -1,0 +1,23 @@
+  ** $ is used in different ways:-**
+1) $xyz to sub  
+    name = sugam 
+    me $name // me sugam
+2) ${} tells explicitly till where to use the variable:-
+        var = script
+        echo "this is ${var}ing" // this is scripting, $varing would assume varing is the variable.
+3) $() runs commnad inside bracket first and then substitute:-
+        dir= $(pwd)
+        echo "currently in dir"
+4) $(()) runs math inside double brackets and treat everything like numbers.
+          apple =5
+          total = $((apple+10))
+          echo "$total" // 15
+          
+   **using awk to program in linux shell, helps in processing csv**
+   1) awk thinks that each col seprated by space, using -F ',' tells that seprated by , 
+      -v sid= "$abc" tells awk to make sid = whatever $abc is. 
+      NR > 1 tells awk to skip first row(header line)
+      $1, $2 tells which column value for current row to take : first,second 
+      gsub commands is used to find and replace in awk. 
+   2) csv_if = $1 +0 converts 03 to 3. next skips the row, break makes us go outside awk command. 
+      
