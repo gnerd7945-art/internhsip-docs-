@@ -1,0 +1,7 @@
+2 ways to define fucntion for a class:-
+class Robot{
+public:void function{}// inside class
+};
+void Robot:: function1{} // this is outside class 
+
+
