@@ -1,0 +1,19 @@
+comms btw browser and server:-
+browser request:-
+GET / HTTP/1.1
+Host: site.com
+server returns:-
+index.html
+Browser reads HTML
+✅ Finds resources
+✅ Requests them
+But this happens while the HTML is still downloading.
+Q) why doesn't the server send all images immediately?
+ANS- Because the server does not know what( which products ,which ads, which user profile) the browser needs.
+
+1) element tab: Elements	Live webpage structure (DOM)
+2) source  tab: Sources	Actual files from server
+source tab has source files which  are the files (HTML, CSS, JavaScript, images, fonts, etc.) that the browser
+loads from the server to build and run a webpage.
+3) Network tab: requests between browser and server
+
