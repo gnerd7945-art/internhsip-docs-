@@ -1,0 +1,10 @@
+gstream is pipeline base architecture that offload heavy lifting-decoding(h264/h265), scaling and colorspace conversion task to dedicated gpu ,making cpu free for other CV logic. 
+**Structure of it**:-
+1) elements- individual machines, each does one job( v412src) grab camera feed, (nvv412decoder) decodes video usign nvidia hardware.
+2) pads- connceting point through  which data flow. source pad: data leaves element from here, sink pad: data enters element from here. 
+3) caps - lightweight object that describes format and properties  of video/audio that can flow thrruogh pads.like what media(video/audio, what codec/encoding used , what resolution etc. 
+4) pipeline- container that holds these elements and manage there state. 
+**appsink** is last element in pipeline  which takes gstream buffer and wraps it such that it can be handed to cpp. 
+
+emit-signals = True  in appsink allow us to  use   callback fucntion, which is more efficeint then opencv's loop and wait.In  opencv cpu wait for hardware ( sits idel). 
+
