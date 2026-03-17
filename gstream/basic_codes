@@ -1,0 +1,4 @@
+#include<gst/gst.h>
+in int main:-
+gst_init(argc,&argv);// gstrema parses its own command line arguments, removes those specific to it and makes argc and argv smaller. eg: remove --gst-debug
+gst_version(&major,&minor,&micro,&nano); // tells verison , all 4 require: major =major breakthrouh( new version), minor = new features.
