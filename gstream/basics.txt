@@ -8,3 +8,9 @@ gstream is pipeline base architecture that offload heavy lifting-decoding(h264/h
 
 emit-signals = True  in appsink allow us to  use   callback fucntion, which is more efficeint then opencv's loop and wait.In  opencv cpu wait for hardware ( sits idel). 
 
+-> Gstream is build on GOobject( c version cpp classes) 
+-> Gstream object can be extended using GOobject inheritance method. Gslice allocator is used for high performance. 
+-> bin is collection of elemnts, can treat as an element itself. 
+-> events are object sent between elements.
+-> messages  are object posted by elements on pipeline's message bus. 
+-> queries: allow elements to ask information from peer elements. 
