@@ -1,0 +1,2 @@
+cntrl+ click select multiple files
+shift+delete to delete those files
