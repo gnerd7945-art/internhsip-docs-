@@ -4,13 +4,24 @@ gst_init(argc,&argv);// gstrema parses its own command line arguments, removes t
 gst_version(&major,&minor,&micro,&nano); // tells verison , all 4 require: major =major breakthrouh( new version), minor = new features.
 
 GstElement* bin, pipeline,source,sink;  //general structre pointer initialization 
+
 pipeline = gst_pipeline_new("my_pipeline"); //pipeline creation 
+
 bin = gst_bin_new("my_bin"); //bin creation, can also do gst_pipeline_new() since it is alos a bin 
+
 source = gst_element_factory_make("element_name","my_src"); //element creation 
+
 sink = gst_element_factory_make("sink_name","mu_sink); //element creation 
+
 gst_bin_add_many(GST_BIN(bin), source,sink,NULL); // add all to bin, NULL is required so function pointer stops reading more memory for elements else will read garbage. //gst_bin_remove() to remove //gst_bin_get_by_name() to get names of elements in bin 
+
 gst_bin_add(GST_BIN(pipeline),bin); //add to pipeline
+
 gst_element_link(source,sink); // link element after adding to pipeline. 
+
+g_object_set() let us to  set proeprty of any gstream object using common interface.eg// g_object_set(source,"Device","path",NULL);  here Device is the key in stuct and "path" thr value. 
+
+
 
 
 
