@@ -26,5 +26,39 @@ WE sometimes don't want  to create an element directly, first we want to inspect
    gchar* type = gst_element_factory_get_metadata(factory,GST_ELEMENT_METADATA); // get metadata
    printf("THIS FACTORY CREATES": type); // print type 
    GstElement* new1 = gst_element_factory_create(factory,"my_decoder");new1 points to actual instance, factory is the blueprint, gst_element_factory_create manually build the element. 
+
 4) g_object_get() -> get name , gst_object_unref(element)-> remove one pointer, at 0, element destroy
+
 5) before linking element we need to add them in pipeline, gst_bin_add(GST_BIN(pipeline),source,filter,sink,NULL); where pipeline= gst_pipeline_new("my_pipeline"); 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4 STATES IN GSTREAMING:-
+1) GST_STATE_NULL: gstelement* struct is just sitting in memory with no camera acess or gpu usage. THis state occurs when element first gets created or while shutting down app.
+2) GST_STATE_READY : The element eg: (v412src) checks if camera is actually plugged in,it claims hardware and no other program  can access camera.here, we check if camera path correct or not.
+3) GST_STATE_PAUSED(ram meory allocation and pushing): pipeline starts moving data until it hits sink. appsink will receive first frame and hold it.the moment we hit play data is already sitting at finish line.
+4) GST_STATE_PLAYING: clock starts running, buffer flow continously.
+* we can change state using gst_element_set_state(pipeline,GST_STATE_PLAYING);*
+*OpenCV tries to do all this in once thus cpu stuck waiting. Here we can set state to pause making cpu ready to digest data immediately.*
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
