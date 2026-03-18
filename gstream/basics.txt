@@ -1,6 +1,6 @@
 gstream is pipeline base architecture that offload heavy lifting-decoding(h264/h265), scaling and colorspace conversion task to dedicated gpu ,making cpu free for other CV logic. 
 **Structure of it**:-
-1) elements- individual machines, each does one job( v412src) grab camera feed, (nvv412decoder) decodes video usign nvidia hardware.
+1) elements- individual machines, each does one job( v412src) grab camera feed, (nvv412decoder) decodes video usign nvidia hardware.*filters* elements which have both source and sink pad. 
 2) pads- connceting point through  which data flow. source pad: data leaves element from here, sink pad: data enters element from here. 
 3) caps - lightweight object that describes format and properties  of video/audio that can flow thrruogh pads.like what media(video/audio, what codec/encoding used , what resolution etc. 
 4) pipeline- container that holds these elements and manage there state. 
@@ -14,3 +14,17 @@ emit-signals = True  in appsink allow us to  use   callback fucntion, which is m
 -> events are object sent between elements.
 -> messages  are object posted by elements on pipeline's message bus. 
 -> queries: allow elements to ask information from peer elements. 
+-> gst-inspect-1.0 element_name/ factory_name // will give provide generic info. 
+Some_More_Codes:-
+GSTelement* is generic pointer 
+1) GstElement* element = gst_element_factory_make("Appsink","mysink");-> element is a pointer to structre that is of type Gobject, gst_factory_make creates element, here creating Appsink template, instance name: mysink.  and returns  memory location of that structre. 
+2)  to make it speacilaized pointer of type appsink we do: GSTAppSInk* sink = GST_APP_SINK(element); 
+
+3)GstElementFactory * : it knows what element does and what data element handles it like class, GstElement* points to actual instance. 
+WE sometimes don't want  to create an element directly, first we want to inspect element to find if it supports certain gpu resolution or feature, for this we use:-
+   GstElementFactor* factory = gst_element_factory_find('some_element"); // build the blueprint for some_element 
+   gchar* type = gst_element_factory_get_metadata(factory,GST_ELEMENT_METADATA); // get metadata
+   printf("THIS FACTORY CREATES": type); // print type 
+   GstElement* new1 = gst_element_factory_create(factory,"my_decoder");new1 points to actual instance, factory is the blueprint, gst_element_factory_create manually build the element. 
+4) g_object_get() -> get name , gst_object_unref(element)-> remove one pointer, at 0, element destroy
+5) before linking element we need to add them in pipeline, gst_bin_add(GST_BIN(pipeline),source,filter,sink,NULL); where pipeline= gst_pipeline_new("my_pipeline"); 
