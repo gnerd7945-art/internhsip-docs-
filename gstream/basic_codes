@@ -25,6 +25,9 @@ BUS:-
 GstElement* bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline)); // bus points to pipeline's message bus. 
 
 gst_bus_add_watch(bus,bus_call,loop) // whenever message arrives in 'bus', call bus_call function in GMainLoop so whnever message arrives GmainLoop wakes up and call bus_call ,loop= which main loop should run callback. 
+** Basically it connect bus_call function to loop:-
+1) The loop says to the Operating System: "Wake me up only if something happens on the Bus."
+2) When a message arrives, the OS wakes the loop, and the loop calls your bus_call
 
  gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data) {
     switch (GST_MESSAGE_TYPE(msg)) {  //could have done msg->type , msg points to structre not just an int or char which could be used in switch thus need to go inside the stuct and get integer value 
@@ -62,14 +65,14 @@ std::atomic<bool> keep_running(true); //atomic for thread_safe bool
 
 // 1. THE BUS CALLBACK (The "Emergency Protocol")
 // This runs in the BACKGROUND thread managed by GMainLoop
- gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data) {
-    GMainLoop *loop = (GMainLoop *)data;
+ gboolean bus_call(GstBus *bus, GstMessage *msg, gpointer data) { // gpointer data point to our GMainLOOP we pass it so bus_call knows which loop to stop.Bus_call only runs is message arrive otherwise thread gst_manager_thread never runs.
+    GMainLoop *loop = (GMainLoop *)data; // convert generic pointer to GMainLoop type. 
 
     switch (GST_MESSAGE_TYPE(msg)) {
         case GST_MESSAGE_EOS:
             std::cout << "\n[Bus] End of stream reached." << std::endl;
             keep_running = false;
-            g_main_loop_quit(loop);
+            g_main_loop_quit(loop);  // stop our GMainLoop which was passed as gpointer data
             break;
 
         case GST_MESSAGE_ERROR: {
@@ -148,7 +151,7 @@ int main(int argc, char *argv[]) {
 
     // --- COMMUNICATION PHASE ---
 
-    GMainLoop *loop = g_main_loop_new(NULL, FALSE);
+    GMainLoop *loop = g_main_loop_new(NULL, FALSE); // create g_main_loop_new object, loop points to it.( this loop will manage bus )
     GstBus *bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
     
     // Attach the bus watcher to the loop
@@ -161,7 +164,7 @@ int main(int argc, char *argv[]) {
     gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
     // Spin off the Management Thread
-    std::thread gst_manager_thread(run_glib_loop, loop); //gst_manage_thread is thread object of thread class, could have written t
+    std::thread gst_manager_thread(run_glib_loop, loop); //gst_manage_thread is thread object of thread class, could have written t, we give loop it's own seprate thread, so loop can start. 
 
     // --- DECOUPLED MAIN WORK LOOP ---
     std::cout << "Main C++ thread is now free for AI work!" << std::endl;
@@ -200,6 +203,11 @@ int main(int argc, char *argv[]) {
     std::cout << "Done." << std::endl;
     return 0;
 }
+
+Qs:-
+Why add_watch before set_state?
+ans-gst_bus_add_watch just puts the "Request" into a queue (the GMainContext). It doesn't actually execute anything yet.If you did set_state(PLAYING) first,
+the camera might fail within 0.0001 seconds. If your code hasn't reached the add_watch line yet, that error message is lost forever.
 
 
 
