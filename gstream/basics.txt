@@ -44,9 +44,13 @@ WE sometimes don't want  to create an element directly, first we want to inspect
 PADS and CAPS :-
 1) signal handler: this attached to an element can tell us if an element has created a new dynamic pad from its pad template. 
 instead of linking element immediately, we tell the element to call us if it detects a new stream. When element detecs a new stream it creates a new source pad and triggers the callback. Inside callback we perform linking to next element. 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+ELEMENTS AND TYPES
 
-
+1) TEE: split one stream input into multiple output.
+2) AGGREGATOR: combine multiple input into one output( eg input from 2 audio stream combined into 1 mathematical stream) 
+3) MULTIPLEXER: package multiple distict stream into one container. 
 
 
 
