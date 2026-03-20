@@ -32,7 +32,13 @@ gst_element_get_static_pad() // retreive pointer to already exisiting pad
 g_signal_connect() // listen for newly created pad and call our callback function. 
 
 gst_element_get_currnet_caps() // return caps of a pad.
+
 gst_pad_link() // link 2 pads 
+
+gst_element_request_pad_simple(tee, "src%d") // explicitly ask for pad. Element constructs it and return GstPad* pointer to it. gst_element_release_request_pad(element,pad)// since we created, we destroy,  unref not  work in this case.
+//src%d is tmeplate of the pad, tee is the element 
+gst_element_request_pad_compatible(GstCaps) //request compatible pad, provide cap details, no need to mention tmeplate. 
+
 ** Flow Exmaple:- **
 gst_element_link: Connect the early static elements (e.g., filesrc → demux).
 
