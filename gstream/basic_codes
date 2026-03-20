@@ -203,6 +203,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Done." << std::endl;
     return 0;
 }
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Qs:-
 1) Why add_watch before set_state?
@@ -241,5 +242,6 @@ If an Error/EOS arrives:
     The thread jumps into your bus_call code.
 
     Once bus_call finishes (returns TRUE), the thread jumps back into the g_main_loop_run waiting state
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
