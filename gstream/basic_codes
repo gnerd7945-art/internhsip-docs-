@@ -1,3 +1,5 @@
+gchar a// a single charachter, gchar* a // pointer to a string.( use this when getting name etc(which are stirng not single letter).
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #include<gst/gst.h>
 in int main:-
 gst_init(argc,&argv);// gstrema parses its own command line arguments, removes those specific to it and makes argc and argv smaller. eg: remove --gst-debug
@@ -31,7 +33,7 @@ gst_element_get_static_pad() // retreive pointer to already exisiting pad
 
 g_signal_connect() // listen for newly created pad and call our callback function. 
 
-gst_element_get_currnet_caps() // return caps of a pad.
+gst_element_get_currnet_caps() // return caps of a pad( return pointer to GstCaps*) 
 
 gst_pad_link() // link 2 pads 
 
@@ -46,14 +48,21 @@ g_signal_connect: Listen for the "pad-added" signal on the demuxer.
 
 Inside Callback:
 
-    Use gst_pad_get_current_caps to identify the stream type.
+    Use gst_pad_get_current_caps(pad) to identify the stream type.
 
     Use gst_element_get_static_pad to get the input of the next element.
 
     Use gst_pad_link to connect the two pads.
 
     Use gst_object_unref to clean up the pointers.
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+gst_caps_get_stucture()//  get stucture of caps, GstStructure( one or more inside GstCaps) has collection of key and value pair( height =100, width =200) 
+
+gst_caps_get_size() // get number of stuctre in GstCaps
+
+str = gst_caps_get_structure(caps, 0);// get first stuctre in caps
+ghar* name = gst_strucutre_get_name(str) // get name
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 g_object_set() let us to  set proeprty of any gstream object using common interface.eg// g_object_set(source,"Device","path",NULL);  here Device is the key in stuct and "path" thr value. 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
