@@ -99,7 +99,7 @@ std::atomic<bool> keep_running(true); //atomic for thread_safe bool
 
 // 2. THE THREAD FUNCTION
 void run_glib_loop(GMainLoop* loop) {
-    g_main_loop_run(loop);
+    g_main_loop_run(loop);  // has anyone called bus?  ahs anyone called GMainLoop quit? if no then sleep. 
     std::cout << "[Thread] GMainLoop has exited." << std::endl;
 }
 
@@ -205,10 +205,41 @@ int main(int argc, char *argv[]) {
 }
 
 Qs:-
-Why add_watch before set_state?
+1) Why add_watch before set_state?
 ans-gst_bus_add_watch just puts the "Request" into a queue (the GMainContext). It doesn't actually execute anything yet.If you did set_state(PLAYING) first,
 the camera might fail within 0.0001 seconds. If your code hasn't reached the add_watch line yet, that error message is lost forever.
+2) How gst_manager_thread works? 
+ans -The Background Thread's Journey
 
+Here is the play-by-play of what that background thread does:
+Phase A: Entry
 
+It enters void run_glib_loop(GMainLoop* loop). It sees the instruction: g_main_loop_run(loop);.
+Phase B: The Block (The "Infinite While")
+
+It enters g_main_loop_run. This is where it "stays" for the rest of the program's life. Inside the GLib library code, it is essentially doing this:
+
+    "Are there any messages on the Bus?" -> No.
+
+    "Has anyone called g_main_loop_quit?" -> No.
+
+    "Okay, I will tell the OS to put me to sleep until a hardware interrupt or a message arrives."
+
+At this point, the thread is "Blocked." It isn't using 100% of your CPU; it's just sitting in the background, waiting for a reason to wake up.
+
+*If the camera works perfectly and never sends an error:*
+Correct. bus_call never executes. The background thread stays "stuck" inside the g_main_loop_run function until the end of time (or until you manually stop the program).
+
+If an Error/EOS arrives:
+
+    The GStreamer hardware thread pushes a message onto the Bus.
+
+    The OS "pokes" the background thread and says, "Wake up! The Bus has mail!"
+
+    g_main_loop_run sees the message, looks at the "Watch" you wired earlier, and says: "Aha! For this message, I need to jump to the function bus_call."
+
+    The thread jumps into your bus_call code.
+
+    Once bus_call finishes (returns TRUE), the thread jumps back into the g_main_loop_run waiting state
 
 
