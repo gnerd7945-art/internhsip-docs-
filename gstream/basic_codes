@@ -2,7 +2,7 @@
 in int main:-
 gst_init(argc,&argv);// gstrema parses its own command line arguments, removes those specific to it and makes argc and argv smaller. eg: remove --gst-debug
 gst_version(&major,&minor,&micro,&nano); // tells verison , all 4 require: major =major breakthrouh( new version), minor = new features.
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 GstElement* bin, pipeline,source,sink;  //general structre pointer initialization 
 
 pipeline = gst_pipeline_new("my_pipeline"); //pipeline creation 
@@ -16,10 +16,40 @@ sink = gst_element_factory_make("sink_name","mu_sink); //element creation
 gst_bin_add_many(GST_BIN(bin), source,sink,NULL); // add all to bin, NULL is required so function pointer stops reading more memory for elements else will read garbage. //gst_bin_remove() to remove //gst_bin_get_by_name() to get names of elements in bin 
 
 gst_bin_add(GST_BIN(pipeline),bin); //add to pipeline
+gst_element_link_pads()/ gst_element_link()// after adding to pipeline or bin  link them. 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+GstPad* Pad // pad pointer
+elements which generate pads dynamically(no source pad) can't be linked directly using gst_element_lin() we need callback and there need to perfom linking. 
 
-gst_element_link(source,sink); // link element after adding to pipeline. 
+gst_pad_get_name() // return string name of pad. 
 
+gst_element_link(source,sink); // link element after adding to pipeline. , gst_element_link_many( ) // more than 2, but pad type: "always" ones. 
+
+gst_element_link_pads(source,"src",demux,"sink") when an element have more than one pad and we ned to link specifi pad of an element by name, here src of source and sink of demux.
+
+gst_element_get_static_pad() // retreive pointer to already exisiting pad 
+
+g_signal_connect() // listen for newly created pad and call our callback function. 
+
+gst_element_get_currnet_caps() // return caps of a pad.
+gst_pad_link() // link 2 pads 
+** Flow Exmaple:- **
+gst_element_link: Connect the early static elements (e.g., filesrc → demux).
+
+g_signal_connect: Listen for the "pad-added" signal on the demuxer.
+
+Inside Callback:
+
+    Use gst_pad_get_current_caps to identify the stream type.
+
+    Use gst_element_get_static_pad to get the input of the next element.
+
+    Use gst_pad_link to connect the two pads.
+
+    Use gst_object_unref to clean up the pointers.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 g_object_set() let us to  set proeprty of any gstream object using common interface.eg// g_object_set(source,"Device","path",NULL);  here Device is the key in stuct and "path" thr value. 
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 BUS:-
 GstElement* bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline)); // bus points to pipeline's message bus. 
@@ -212,12 +242,10 @@ the camera might fail within 0.0001 seconds. If your code hasn't reached the add
 2) How gst_manager_thread works? 
 ans -The Background Thread's Journey
 
-Here is the play-by-play of what that background thread does:
 Phase A: Entry
-
 It enters void run_glib_loop(GMainLoop* loop). It sees the instruction: g_main_loop_run(loop);.
-Phase B: The Block (The "Infinite While")
 
+Phase B: The Block (The "Infinite While")
 It enters g_main_loop_run. This is where it "stays" for the rest of the program's life. Inside the GLib library code, it is essentially doing this:
 
     "Are there any messages on the Bus?" -> No.
