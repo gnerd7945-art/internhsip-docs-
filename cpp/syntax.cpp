@@ -47,3 +47,7 @@ Robot::Robot(int id) : _id(id) {
 void Robot::sayHello() {
     std::cout << "Hello, my ID is " << _id << std::endl;
 }
+
+
+2) THREADS:-
+    std:: thread worker(func_name,argument) // thread needs function address and argument seperately.
