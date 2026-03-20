@@ -40,7 +40,9 @@ WE sometimes don't want  to create an element directly, first we want to inspect
 4) GST_STATE_PLAYING: clock starts running, buffer flow continously.
 * we can change state using -> gst_element_set_state(pipeline,GST_STATE_PLAYING);*
 *OpenCV tries to do all this in once thus cpu stuck waiting. Here we can set state to pause making cpu ready to digest data immediately.*
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PADS and CAPS :-
+1) signal handler: this attached to an element can tell us if an element has created a new dynamic pad from its pad template. 
 
 
 
