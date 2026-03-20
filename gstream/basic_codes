@@ -84,8 +84,8 @@ std::atomic<bool> keep_running(true); //atomic for thread_safe bool
             std::cerr << "\n[Bus] CRITICAL ERROR: " << error->message << std::endl;
             if (debug) std::cerr << "[Bus] Debug Info: " << debug << std::endl;
 
-            g_error_free(error); // Cleaning the "House"
-            g_free(debug);      // Cleaning the debug string
+            g_error_free(error); dd
+            g_free(debug);      
             
             keep_running = false;
             g_main_loop_quit(loop);
