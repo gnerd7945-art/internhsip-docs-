@@ -54,15 +54,51 @@ ELEMENTS AND TYPES
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+how get_element_link() works:-
+When you call gst_element_link(ElementA, ElementB), GStreamer does:-
 
+    It looks at all the src pads on Element A.
 
+    It looks at all the sink pads on Element B.
 
+    It compares their Pad Templates (their blueprints) to see if they share a common language (e.g., they both speak video/x-raw).
 
+    If it finds a match, it creates the link.
 
+    If it does NOT find a match, it aborts and returns FALSE
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Suppose you are writing an auto-plugger and you have two random elements. You don't know what they are, and you want to see if they can be linked.
 
+Step 1: Get the Pads:-
+GstPad *src_pad = gst_element_get_static_pad(element_A, "src");
+GstPad *sink_pad = gst_element_get_static_pad(element_B, "sink");
 
+Step 2: Query the "Allowed" Caps
+GstCaps *src_caps = gst_pad_query_caps(src_pad, NULL);
+GstCaps *sink_caps = gst_pad_query_caps(sink_pad, NULL);
 
+Step 3: The "Intersection" Math
 
+GStreamer has a built-in math function called gst_caps_intersect(). It takes two GstCaps folders and returns a brand new folder containing only the sheets of paper they both share.
+
+GstCaps *overlap = gst_caps_intersect(src_caps, sink_caps);
+
+Step 4: Check the Result
+If the overlap folder is empty, they cannot be linked. If it has even one structure in it, they are compatible.
+
+if (gst_caps_is_empty(overlap)) {
+    g_print("These elements are INCOMPATIBLE.\n");
+} else {
+    g_print("Match found! Linking...\n");
+    gst_pad_link(src_pad, sink_pad);
+}
+
+// Clean up all the pointers!
+gst_caps_unref(src_caps);
+gst_caps_unref(sink_caps);
+gst_caps_unref(overlap);
+gst_object_unref(src_pad);
+gst_object_unref(sink_pad);
 
 
 
