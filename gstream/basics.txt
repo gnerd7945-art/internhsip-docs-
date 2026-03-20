@@ -52,6 +52,8 @@ ELEMENTS AND TYPES
 2) AGGREGATOR: combine multiple input into one output( eg input from 2 audio stream combined into 1 mathematical stream) 
 3) MULTIPLEXER: package multiple distict stream into one container. 
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 
