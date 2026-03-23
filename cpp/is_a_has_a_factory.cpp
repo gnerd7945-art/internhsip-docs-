@@ -131,8 +131,67 @@ int main(){
  truck.specs();
 return 0;
 }
-
-  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*We are still harcoding type of Engine in vehical class, what if n number of engine are there, to create an object with different engines we use dependecy injection.*
+ class Engine{
+private:
+int PowerValue;
+string Engine_name;
+public:
+   Engine(int power, string name):PowerValue(power),name(name){};
+int get_power(){
+  return PowerValue;
+}
+string get_name(){
+  return Engine_name;
+}
+//setter
+void set_power(int p){
+  PowerValue = p;
+}
+void set_engine_name(string name){
+  Engine_name= name;}
+virtual void get_specs(string fuel_name){} =0;
+};
+class Turbo_engine: public
+class Vehicle{
+private:
+string name;
+int load;
+Engine* engine; 
+public: 
+Vehicle(string name, int load, int PowerValue, string Enigne_name,Engine* e): name(name),load(load){
+  engine =e;}
+void specs(){
+    std::cout<<"my specs:" <<name<<","<<load<<","<<engine->get_power()<<","<<engine->get_name(),"using engine:"<<engine->get_specs()<<std::endl;
+}
+void change_engine(int Power, string name){
+  engine->set_power(Power);
+  engine->set_engine_name(name);
+}
+~Vehicle(){
+  delete engine;
+}   
+};
+class Truck :: public Vehicle{
+public:
+ Truck(string name, int load, int PowerValue, string Enigne_name,Engine* e): Vehicle(name, load,PowerValue,Engine_name,e){ // vehicle constructor called. 
+   std::cout<<"TRuck created in truck class, attributs handeled by Vehicle base class"<<std::endl;
+     }
+};
+class Ship{
+ public:
+  using Vehicle::Vehicle; // tells Ship to use Vehicle constructor
+};
+int main(){
+  Enigne* e1 = new turboEngine("jet_fuel");
+  Enigne* e2 =- new DIeselEngine("diesel_fuel");
+  Truck truck( "tata",500,2000,"tata_enigne",e1);
+ truck.specs();
+ truck.change_engine(3000,"updated_tata_engine");
+ truck.specs();
+return 0;
+}
 
 
 
