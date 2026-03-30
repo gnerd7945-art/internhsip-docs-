@@ -1,0 +1,42 @@
+#include<iostream>
+#include<string>
+
+class A{
+        private:
+         std:: string s;
+        public:
+        A( const std:: string &str): s(str){}; // take string by reference and store to s
+         A( A &obj){
+            s= obj.s; // this is a copy( expensive) , s = std::move(obj.s)  this is faster, s takes the internal pointer that obj was using and obj.s is set to empty(nullptr)
+            std::cout<<"copy_constructor called to make deep copy"<<std::endl;
+         }
+    };
+int main(int argc, char** argv){
+    A obj("hi");  // hi is literal, i.e temporary. 
+    A obj2(obj);
+    std::string s = "hello";
+    std:: string s1 = s;
+    std:: string  s2 = std::move(s); // we moves string froms to s2. s still exist, it's resource taken. we can take specifi resource avoiding copying all(expensive)
+    std::cout<<s<<std::endl;
+    std::cout<<s1<<std::endl;
+    std::cout<<s2<<std::endl;
+// lvalue: reference: T& refers to an object which has a name and exist in stable memory.( left side of assignment)
+ // rvalue reference :T&& temporary object that is about to be destroyed. ( right side of assignment) 
+
+
+    
+}
+//////////////-------------------------------------------------------------------------------------------------------------------------------------///////////////
+/*
+std::string& (Non-const): This says, "I want a reference to an object because I intend to change it."
+
+A obj("hi"), the string "hi" is a literal. The compiler has to create a temporary std::string object to pass into your constructor.
+
+    Temporary objects (R-values) have no "home" (no name/address). They are destroyed the moment the constructor finishes.
+
+    If your constructor took std::string& str (non-const), the compiler would say: "Wait! You are asking for a reference so you can modify it.
+     But str is a temporary object that will die in a millisecond. Modifying it is useless and likely a bug!"
+-----------------------------------------------------------------------------------------------------------------------------------
+const std::string& (Const): This says, "I just want to look at the object. I promise not to change it."
+ in this case compiler allows us to use l value refrence. 
+*/
