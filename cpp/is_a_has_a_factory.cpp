@@ -113,7 +113,7 @@ void change_engine(int Power, string name){
   delete engine;
 }   
 };
-class Truck :: public Vehicle{
+class Truck : public Vehicle{
 public:
  Truck(string name, int load, int PowerValue, string Enigne_Type): Vehicle(name, load,PowerValue,Engine_Type){ // vehicle constructor called. 
    std::cout<<"TRuck created"<<std::endl;
