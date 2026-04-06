@@ -64,8 +64,8 @@ int main() {
     // Remove even numbers
     auto new_end = std::remove_if(v.begin(), v.end(), [](int n) { return n % 2 == 0; });
     
-    // v is now {1, 3, 5, ?, ?, ?} - elements after new_end are unspecified
-    v.erase(new_end, v.end()); // v is now {1, 3, 5}
+    // v is now {1, 3, 5, ?, ?, ?} - elements after new_end are unspecified // 1 3 5 2 4 6. 
+    v.erase(new_end, v.end()); // v is now {1, 3, 5} 
     
     for (int n : v) std::cout << n << " "; // Output: 1 3 5
 }
