@@ -57,3 +57,15 @@ void Robot::sayHello() {
 3) some imp funcitons:-
     std::to_string(some_int) // convert ot string
     std::stoi(some string) // convert to int 
+    std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too 
+    std:: remove_if(vec.begin(),vec.end().::logic) // reorders, does not chamge container size, just shift relevant ones to left, need to pair with erase. 
+int main() {
+    std::vector<int> v = {1, 2, 3, 4, 5, 6};
+    // Remove even numbers
+    auto new_end = std::remove_if(v.begin(), v.end(), [](int n) { return n % 2 == 0; });
+    
+    // v is now {1, 3, 5, ?, ?, ?} - elements after new_end are unspecified
+    v.erase(new_end, v.end()); // v is now {1, 3, 5}
+    
+    for (int n : v) std::cout << n << " "; // Output: 1 3 5
+}
