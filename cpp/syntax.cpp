@@ -62,7 +62,7 @@ void Robot::sayHello() {
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
     // Remove even numbers
-    auto new_end = std::remove_if(v.begin(), v.end(), [](int n) { return n % 2 == 0; });
+    auto new_end = std::remove_if(v.begin(), v.end(), [](int n) { return n % 2 == 0; }); // new_end is next to last valid element. 
     
     // v is now {1, 3, 5, ?, ?, ?} - elements after new_end are unspecified // 1 3 5 2 4 6. 
     v.erase(new_end, v.end()); // v is now {1, 3, 5} 
