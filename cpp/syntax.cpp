@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+1) Inititalization:-
 class MyClass {
 private:
     int id;
@@ -51,3 +51,9 @@ void Robot::sayHello() {
 
 2) THREADS:-
     std:: thread worker(func_name,argument) // thread needs function address and argument seperately.
+
+
+
+3) some imp funcitons:-
+    std::to_string(some_int) // convert ot string
+    std::stoi(some string) // convert to int 
