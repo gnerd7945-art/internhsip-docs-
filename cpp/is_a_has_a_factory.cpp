@@ -153,7 +153,7 @@ void set_engine_name(string name){
   Engine_name= name;}
 virtual void get_specs(string fuel_name){} =0;
 };
-class Turbo_engine: public
+class Turbo_engine: public Engine{
 class Vehicle{
 private:
 string name;
