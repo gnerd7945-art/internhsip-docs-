@@ -60,6 +60,8 @@ void Robot::sayHello() {
     std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too 
     std:: remove_if(vec.begin(),vec.end().::logic) // reorders, does not chamge container size, just shift relevant ones to left, need to pair with erase. 
     std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. 
+    std::optional<data type> var; 
+
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
     // Remove even numbers
@@ -71,5 +73,8 @@ int main() {
     for (int n : v) std::cout << n << " "; // Output: 1 3 5
     // transform usage:-
     std::transform(input.begin(),input.end(),input.begin(),[](char&a)->char{return std::tolower(a);}); // 3rd input specify that transformation is done in input itself.we use transform since it allow us to save result on any other string and explicitly says we are doing range based logic
-
+    std::optional<std::string> var = empl.get_manager();
+    if(var.has_value()){
+        std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional) 
+        
 }
