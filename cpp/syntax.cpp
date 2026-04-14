@@ -62,6 +62,7 @@ void Robot::sayHello() {
     std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. 
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;})
+    std::isspace(string/ch); // check if char or string is space. 
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
