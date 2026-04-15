@@ -63,6 +63,7 @@ void Robot::sayHello() {
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;})
     std::isspace(string/ch); // check if char or string is space. 
+    std::getline(read_from_string/ifstream_obj, dump_to_string);
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
@@ -75,8 +76,31 @@ int main() {
     for (int n : v) std::cout << n << " "; // Output: 1 3 5
     // transform usage:-
     std::transform(input.begin(),input.end(),input.begin(),[](char&a)->char{return std::tolower(a);}); // 3rd input specify that transformation is done in input itself.we use transform since it allow us to save result on any other string and explicitly says we are doing range based logic
+    // optional use case:-
     std::optional<std::string> var = empl.get_manager();
     if(var.has_value()){
-        std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional) 
-        
+        std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   //ifstream:-
+    std::ifstream file("some_folder_path");
+    std::string line;
+    
+    while(std::getline(file, line)){
+        std::istringstream iss(line);
+        if(iss>>key>>value){ // 1st word become key and second becomes value
+            //condition 
+        }     
 }
+// chrono:-
+const auto now = std::chrono::system_clock::now() // advance  math time ( huge integer) representing tick from jan1, 1970
+std::time_t now_time = std::chrono::system_clock::to_time_t(now) // represent seconds ( looses some micro/nano seconds) from 1970 to now. std::time_t is middleperson which is required to talk with other tools, as they dont  understands chrono.  std::chrono::system_clock::to_time_t is required as it acknoweldges that you are okay with loosing nano seconds of time 
+std::tm t{} // a strcut which holds time in month,year,day var 
+add value to struct:-
+#if defined(_WIN32)
+    gmtime_s(&t, &nowTime); // Windows, use localtime_r/s for local , r and s makes it thread_safe. 
+#else
+    gmtime_r(&t, &timeStruct); // Linux/Mac
+#endif
+std::ostringstream ostream; 
+ostream<< std::put_time(&t, "format"); // put time converts struct data to date format
+return ostream.str() // convert obj mem variable to string 
