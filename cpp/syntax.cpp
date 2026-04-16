@@ -104,3 +104,21 @@ add value to struct:-
 std::ostringstream ostream; 
 ostream<< std::put_time(&t, "format"); // put time converts struct data to date format
 return ostream.str() // convert obj mem variable to string 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // function pointers:-
+    void hello(){
+    std::cout<<"hello<<std::endl;
+    }
+     void callback(void(*passed_func)()){
+         *passed_func(); // passed_func() would also have worked, automatic dereference.
+     }
+    
+
+
+
+
+
+
+
+
+
