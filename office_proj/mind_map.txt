@@ -1,0 +1,22 @@
+## uncovering mosquito.txt ## :-
+push/ subscriber model:-
+the server sends json payload on what user did to broker url addresss, it also sends topic address( which our cpp file(mosqutio_sub.cpp) is subscribed to).
+the broker see's who is subsribed to this topic and  see our code in it, it instantly pushed the json payload over netwrok to our cpp code. 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+functions starting with mosquitto_ are built directly into the Mosquitto # C library #. You did not write these; you are just calling them.
+
+    mosquitto_connect_callback_set(...): A library function.// passed: mosq, on_connect
+
+    mosquitto_subscribe_callback_set(...): A library function.
+
+    mosquitto_message_callback_set(...): A library function.
+
+    mosquitto_loop_forever(...): A library function. This is the engine that keeps your program running endlessly, waiting for network traffic.
+
+    The functions you pass into the library functions are your own code.
+
+    on_connect: You wrote this. You are telling the library, "When you successfully connect to the broker, run my on_connect function so I can print a success log."
+
+    on_subscribe: You wrote this.
+
+    on_message: You wrote this. You are telling the library, "When a message actually arrives, give the raw bytes to my on_message function so I can parse the JSON."
