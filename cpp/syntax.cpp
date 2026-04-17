@@ -121,11 +121,13 @@ return ostream.str() // convert obj mem variable to string
         json::parse(string) // convert string to json obj
 
         json["key] = another_json.value("another_key",0) /// assign value at another_key in another_json, if not found then return 0. 
+        json.contains("key") // return t/f 
 
         json data = { {"name", "Alice"}, {"stats", {10, 20, 30}} };
         fstream fstream_obj("path to some file);
         json some_json{};
         fstream_obj >> json // dump file content to json 
+        
 
     try {
         // Successful access
