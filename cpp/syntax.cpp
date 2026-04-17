@@ -82,6 +82,7 @@ int main() {
         std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
    //ifstream:-
+    // fstream obj > getline> ss, then dump to variable 
     std::ifstream file("some_folder_path"); // creates file object and immediately attempts to open file. 
     std::string line;
     
