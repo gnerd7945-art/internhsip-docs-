@@ -82,7 +82,7 @@ int main() {
         std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
    //ifstream:-
-    std::ifstream file("some_folder_path");
+    std::ifstream file("some_folder_path"); // creates file object and immediately attempts to open file. 
     std::string line;
     
     while(std::getline(file, line)){
@@ -112,9 +112,32 @@ return ostream.str() // convert obj mem variable to string
      void callback(void(*passed_func)()){
          *passed_func(); // passed_func() would also have worked, automatic dereference.
      }
-    
+    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// JSON in CPP:-
+        #include <nlohmann/json.hpp>
+        using json = nlohmann::json;
+        json::parse(string) // convert string to json obj
 
+        json["key] = another_json.value("another_key",0) /// assign value at another_key in another_json, if not found then return 0. 
+
+        json data = { {"name", "Alice"}, {"stats", {10, 20, 30}} };
+
+    try {
+        // Successful access
+        std::string name = data.at("name"); 
+        int first_stat = data.at("stats").at(0);
+        
+        std::cout << name << " has stat: " << first_stat << "\n";
+
+        // This will FAIL and throw an exception because "age" doesn't exist
+        int age = data.at("age"); 
+
+    } catch (json::out_of_range& e) {
+        // Catching the error if the key is missing or index is out of bounds
+        std::cerr << "Error: " << e.what() << "\n";
+    }
+}
 
 
 
