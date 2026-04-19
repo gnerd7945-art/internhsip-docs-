@@ -1,0 +1,16 @@
+1) // to find min number in structure( in stuctre we can push and pop value,thus min needs to be tracked) without looping or extra space( no map, no pair etc, no pointer) 
+->pushing logic:-
+if structre empty-> min = val_to_be_pushed
+  if pushing_val > min: do normal push 
+  if new_val < min: min = new_val and we push: 2*new_val - prev_min as pushed_value. 
+   logic of push:
+   new_val-min <0
+    2*new_val-prev_min < new_val // now, whever we go for pop and see that value_to_be_popped is < min, we know for sure that value_to_be_popped is  min, min  needed to be changed, 
+    //popping:-
+     remove value_to_be_popped 
+    restore prev_min by doing, min = 2*new_val -value_to_be_popped ( since   2*new_val - prev_min was pushed as flag) 
+      if remove value_to_be_popped  > min then it is normal value, simply pop it. 
+
+// entire logic is to write value less then current min in temrs of current min( 2*value- current_min) so we can restore it later if value flag(*value- current_min) popped. 
+      ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2) 
