@@ -81,7 +81,8 @@ int main() {
     if(var.has_value()){
         std::cout<<*var<<std::endl; // * val gives value not val( it is wrapped in std:::optional)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   //ifstream:-
+   //fstream:-
+    it is used to open, read and write to files. 
     // fstream obj > getline> ss, then dump to variable 
     std::ifstream file("some_folder_path"); // creates file object and immediately attempts to open file. 
     std::string line;
@@ -92,6 +93,25 @@ int main() {
             //condition 
         }     
 }
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //std::filesystem:-
+    it is used to create/delete , iterate folder and files 
+    namespace fs= std::filesystem;
+    for(const auto entry& : fs::recusive_directory_iterator(parent_folder){// iterate over sub folder, .path() gives object and .string() converts to string, find() is string method
+    if(entry.path().string().find(some_name) != std::string::npos)){
+        const auto toName{entry.parent_path() / (camName + streamStr)}; // '/' is overloaded to concat path. 
+        auto errorCode{std::error_code{}};
+        fs::rename(entry.path().string(), toName, errorCode); // errorcode do not let crash if unsucessfull, can skip 
+        fs::exist(toName);// check if sucess
+
+        fs::create_directories("logs/camera_1/errors");//  Unlike "create_directory"  which only makes one folder, this makes the entire chain of folders at once.
+
+        fs::remove_all("/tmp/comm/old_fifos"); This is the C++ equivalent of rm -rf. It deletes a folder and everything inside it instantly.
+    }
+    }; 
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
 // chrono:-
 const auto now = std::chrono::system_clock::now() // advance  math time ( huge integer) representing tick from jan1, 1970
 std::time_t now_time = std::chrono::system_clock::to_time_t(now) // represent seconds ( looses some micro/nano seconds) from 1970 to now. std::time_t is middleperson which is required to talk with other tools, as they dont  understands chrono.  std::chrono::system_clock::to_time_t is required as it acknoweldges that you are okay with loosing nano seconds of time 
