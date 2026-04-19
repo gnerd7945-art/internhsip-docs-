@@ -59,6 +59,8 @@ void Robot::sayHello() {
     std::stoi(some string) // convert to int 
     std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too 
     std:: remove_if(vec.begin(),vec.end().::logic) // reorders, does not chamge container size, just shift relevant ones to left, need to pair with erase. 
+    std::find_if(vec.begin(),vec.end().::logic)// find and return only if logic meets( returns forst occurance)
+    std::find(vec.begin(),vec.end()), returns iterator to first occurance. or end() 
     std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. 
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;})
