@@ -145,7 +145,10 @@ return ostream.str() // convert obj mem variable to string
     }
 }
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// rules:-
+1) avoid using raw pointer to access value/address of containers. 
+2) variable = (condition) ? value_if_true : value_if_false; // not == btw variable and condition 
 
 
 
