@@ -120,7 +120,7 @@ return ostream.str() // convert obj mem variable to string
         using json = nlohmann::json;
         json::parse(string) // convert string to json obj
 
-        json["key] = another_json.value("another_key",0) /// assign value at another_key in another_json, if not found then return 0. 
+        json["key] = another_json.value("another_key",0) /// assign value at another_key in another_json, if not found then return 0 to beassigned to key. 
         json.contains("key") // return t/f 
 
         json data = { {"name", "Alice"}, {"stats", {10, 20, 30}} };
@@ -144,6 +144,12 @@ return ostream.str() // convert obj mem variable to string
         std::cerr << "Error: " << e.what() << "\n";
     }
 }
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// iterators:-
+ std::vector<int>:: iterator it = vec.begin(); auto itn= vec.begin() +5;
+    std::distance(it,itn) // return elements btw 2 iterators(5) 
+    std::advance(it, 3) // move it 3 steps forward. 
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
