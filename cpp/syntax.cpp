@@ -101,6 +101,7 @@ int main() {
     //std::filesystem:-
     it is used to create/delete , iterate folder and files 
     namespace fs= std::filesystem;
+    for(const auto entry&: fs::directory_iterator(parent_folder) // only iterate what's inside this folder in 1 level dont go inside  subfolders
     for(const auto entry& : fs::recusive_directory_iterator(parent_folder){// iterate over sub folder, .path() gives object and .string() converts to string, find() is string method
     if(entry.path().string().find(some_name) != std::string::npos)){
         const auto toName{entry.parent_path() / (camName + streamStr)}; // '/' is overloaded to concat path. 
@@ -113,6 +114,7 @@ int main() {
         fs::remove_all("/tmp/comm/old_fifos"); This is the C++ equivalent of rm -rf. It deletes a folder and everything inside it instantly.
     }
     }; 
+        entry.is_regular_file()// txt,json,mp4, not: directory,symlink,sockets 
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
 // chrono:-
 const auto now = std::chrono::system_clock::now() // advance  math time ( huge integer) representing tick from jan1, 1970
@@ -149,6 +151,7 @@ return ostream.str() // convert obj mem variable to string
         fstream fstream_obj("path to some file);
         json some_json{};
         fstream_obj >> json // dump file content to json 
+        json["name'.get<string>(); // gets value and convert
         
 
     try {
@@ -166,12 +169,15 @@ return ostream.str() // convert obj mem variable to string
         std::cerr << "Error: " << e.what() << "\n";
     }
 }
+json.back() // gets last element  in json, back().is_object()// chekc if it is object()
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // iterators:-
  std::vector<int>:: iterator it = vec.begin(); auto itn= vec.begin() +5;
     std::distance(it,itn) // return elements btw 2 iterators(5) 
     std::advance(it, 3) // move it 3 steps forward. 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+std::string name= 'sugam', prefix = sug 
+name.starts_with(prefix);// t/f 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
