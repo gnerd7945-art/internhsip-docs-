@@ -176,6 +176,7 @@ json.back() // gets last element  in json, back().is_object()// chekc if it is o
     std::distance(it,itn) // return elements btw 2 iterators(5) 
     std::advance(it, 3) // move it 3 steps forward. 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// string 
 std::string name= 'sugam', prefix = sug 
 name.starts_with(prefix);// t/f 
 
