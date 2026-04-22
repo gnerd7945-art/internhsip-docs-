@@ -179,6 +179,40 @@ json.back() // gets last element  in json, back().is_object()// chekc if it is o
 // string 
 std::string name= 'sugam', prefix = sug 
 name.starts_with(prefix);// t/f 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//lambda:-
+ some_function([](int x )->{print(x)}) // we pass lambda to it. 
+some_function(std::function<void(int)> func){
+func(10);// executes lambda () applied 
+}
+[](){}()-> lambda executed on the spot 
+// more eg:-
+
+#include <iostream>
+#include <functional>
+class EventChannel {
+    std::function<void(int)> handler;
+
+public:
+    void setHandler(std::function<void(int)> h) {
+        handler = h;  // store the lambda // store the lambda here 
+    }✅ Case 2: Lambda is passed somewhere (still NOT called here)
+
+    void simulateEvent() {
+        if (handler) {
+            handler(42);  // <-- lambda called here
+        }
+    }
+};
+int main() {
+    EventChannel channel;
+
+    channel.setHandler([](int value) {
+        std::cout << "Event received: " << value << "\n"; //  pass the lambda to this function 
+    });
+
+    channel.simulateEvent();  // triggers the lambda in some other function
+}
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
