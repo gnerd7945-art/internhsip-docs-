@@ -78,6 +78,7 @@ int main() {
     for (int n : v) std::cout << n << " "; // Output: 1 3 5
     // transform usage:-
     std::transform(input.begin(),input.end(),input.begin(),[](char&a)->char{return std::tolower(a);}); // 3rd input specify that transformation is done in input itself.we use transform since it allow us to save result on any other string and explicitly says we are doing range based logic
+    std::transform(input.begin(),input.end(),input2.beign(),new_vec.begin() or std::back_inserter(new_vec),[](int a, int b)->int{return a+b;});  //new_vec.begin() if adequate size already allocated since std::trnasform does not rezise automatically for the container. 
     // optional use case:-
     std::optional<std::string> var = empl.get_manager();
     if(var.has_value()){
@@ -183,7 +184,8 @@ name.starts_with(prefix);// t/f
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
 some_function(std::function<void(int)> func){
-func(10);// executes lambda () applied 
+func(10);// executes lambda () applied
+
 }
 [](){}()-> lambda executed on the spot 
 // more eg:-
@@ -212,6 +214,28 @@ int main() {
     });
 
     channel.simulateEvent();  // triggers the lambda in some other function
+}
+// using mutable to edit capture by value, else defualt they are const. 
+[x]() mutable{++x;}
+// unique_ptr cannot be copied inside lambda, must use move:-
+#include <iostream>
+#include <memory>
+
+int main() {
+    auto up = std::make_unique<int>(42);
+
+    // Move unique_ptr into lambda (C++14+)
+    auto lambda = [ptr = std::move(up)]() mutable {   // mutable is often needed
+        if (ptr) {
+            *ptr = 100;
+            std::cout << "Inside lambda: " << *ptr << '\n';
+            ptr.reset();        // You can reset or modify
+        }
+    };
+
+    lambda();
+
+    std::cout << "After lambda: " << (up ? "still alive" : "moved away") << '\n';
 }
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
