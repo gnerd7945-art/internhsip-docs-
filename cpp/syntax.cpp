@@ -237,7 +237,7 @@ int main() {
 
     std::cout << "After lambda: " << (up ? "still alive" : "moved away") << '\n';
 }
-
+// auto&&& arg in lambda aloow universal forwarding. 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
 1) avoid using raw pointer to access value/address of containers. 
