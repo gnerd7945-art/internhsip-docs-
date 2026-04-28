@@ -57,13 +57,13 @@ void Robot::sayHello() {
 3) some imp funcitons:-
     std::to_string(some_int) // convert ot string
     std::stoi(some string) // convert to int 
-    std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too 
+    std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too , lambda should return  bool 
     std:: remove_if(vec.begin(),vec.end().::logic) // reorders, does not chamge container size, just shift relevant ones to left, need to pair with erase. uses bool 
-    std::find_if(vec.begin(),vec.end().::logic)// find and return only if logic meets( returns forst occurance)
-    std::find(vec.begin(),vec.end()), returns iterator to first occurance. or end() 
+    std::find_if(vec.begin(),vec.end().::logic)// find and return only if logic meets( returns forst occurance), lambda return bool 
+    std::find(vec.begin(),vec.end(),value)//  returns iterator to first occurance. or end() 
     std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. 
     std::optional<data type> var; 
-    std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;})
+    std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;}) // return bool , lambda returns bool or any value whihc converts to bool: eg: return x: int-> bool(0=f,else t) 
     std::isspace(string/ch); // check if char or string is space. 
     std::getline(read_from_string/ifstream_obj, dump_to_string);
 
