@@ -61,7 +61,7 @@ void Robot::sayHello() {
     std:: remove_if(vec.begin(),vec.end().::logic) // reorders, does not chamge container size, just shift relevant ones to left, need to pair with erase. uses bool 
     std::find_if(vec.begin(),vec.end().::logic)// find and return only if logic meets( returns forst occurance), lambda return bool 
     std::find(vec.begin(),vec.end(),value)//  returns iterator to first occurance. or end() 
-    std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. 
+    std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. It does element wise transfomration(lambda takes one input)
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;}) // return bool , lambda returns bool or any value whihc converts to bool: eg: return x: int-> bool(0=f,else t) 
     std::isspace(string/ch); // check if char or string is space. 
@@ -78,7 +78,7 @@ int main() {
     for (int n : v) std::cout << n << " "; // Output: 1 3 5
     // transform usage:-
     std::transform(input.begin(),input.end(),input.begin(),[](char&a)->char{return std::tolower(a);}); // 3rd input specify that transformation is done in input itself.we use transform since it allow us to save result on any other string and explicitly says we are doing range based logic
-    std::transform(input.begin(),input.end(),input2.beign(),new_vec.begin() or std::back_inserter(new_vec),[](int a, int b)->int{return a+b;});  //new_vec.begin() if adequate size already allocated since std::trnasform does not rezise automatically for the container. 
+    std::transform(input.begin(),input.end(),input2.beign(),new_vec.begin() or std::back_inserter(new_vec),[](int a, int b)->int{return a+b;});  //new_vec.begin() if adequate size already allocated since std::trnasform does not rezise automatically for the container. DONT USE TRANSFORM FOR SORTING.
     // optional use case:-
     std::optional<std::string> var = empl.get_manager();
     if(var.has_value()){
