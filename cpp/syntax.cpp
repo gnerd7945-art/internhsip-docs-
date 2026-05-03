@@ -172,10 +172,12 @@ return ostream.str() // convert obj mem variable to string
 }
 json.back() // gets last element  in json, back().is_object()// chekc if it is object()
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// iterators:-
+// iterators and vector:-
  std::vector<int>:: iterator it = vec.begin(); auto itn= vec.begin() +5;
     std::distance(it,itn) // return elements btw 2 iterators(5) 
     std::advance(it, 3) // move it 3 steps forward. 
+//common vector usage:-
+vector<bool> used(n,false); // initialize n vector with false value. 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // string 
 std::string name= 'sugam', prefix = sug 
