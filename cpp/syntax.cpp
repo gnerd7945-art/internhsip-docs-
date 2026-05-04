@@ -186,6 +186,7 @@ vector<bool> used(n,false); // initialize n vector with false value.
 // string 
 std::string name= 'sugam', prefix = sug 
 name.starts_with(prefix);// t/f 
+name.substr(1,3) //uga, start at 1 position and take 3 char  
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
