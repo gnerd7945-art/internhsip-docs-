@@ -66,7 +66,7 @@ void Robot::sayHello() {
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;}) // return bool , lambda returns bool or any value whihc converts to bool: eg: return x: int-> bool(0=f,else t) 
     std::isspace(string/ch); // check if char or string is space. 
     std::getline(read_from_string/ifstream_obj, dump_to_string);
-
+    std::reverse(vec.begin(),vec.end()) // works for vector,queue,list,array,std::string
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
     // Remove even numbers
