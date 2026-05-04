@@ -248,7 +248,7 @@ int main() {
 // rules:-
 1) avoid using raw pointer to access value/address of containers. 
 2) variable = (condition) ? value_if_true : value_if_false; // not == btw variable and condition 
-3) if in param you do: const class_name& obj. Then inside that function(which uses the params)  you can only call const function  of that obj, func() const allow func() to be called if obj const 
+3) if in param you do: const class_name& obj. Then inside that function(which uses that params)  you can only call const function  of that obj, func() const allow func() to be called if obj const 
 4) almost always if return type  is private reference, make it const in function declaration or make it const if function is const, return by value, then const not needed. 
 
 
