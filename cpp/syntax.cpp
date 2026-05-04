@@ -248,6 +248,7 @@ int main() {
 // rules:-
 1) avoid using raw pointer to access value/address of containers. 
 2) variable = (condition) ? value_if_true : value_if_false; // not == btw variable and condition 
+3) if in param you do: const class_name& obj. Then inside the function you can only call const function  of that obj. 
 
 
 
