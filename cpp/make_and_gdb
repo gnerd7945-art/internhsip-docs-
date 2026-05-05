@@ -1,0 +1,19 @@
+gdb setup:-
+1)in parent coding folder create .gdbinit file:-
+# ~/Desktop/coding/.gdbinit
+set pagination off
+
+define hook-stop
+  echo \n--- locals ---\n
+  info locals
+  echo \n--- backtrace ---\n
+  backtrace
+  echo \n
+end
+
+2)tell gdb to trust that folder, in home folder do:-
+# ~/.gdbinit
+add-auto-load-safe-path /home/sugam/Desktop/coding/
+
+3) each project specific folder get's it's own gdbinit, also add there path in ~/.gdbinit:-
+    add-auto-load-safe-path /home/sugam/Desktop/coding/GradeManager/
