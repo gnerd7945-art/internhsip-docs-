@@ -14,3 +14,22 @@ if structre empty-> min = val_to_be_pushed
 // entire logic is to write value less then current min in temrs of current min( 2*value- current_min) so we can restore it later if value flag(*value- current_min) popped. 
       ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 2) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+//COMPILER CHECKS:-
+1) start loooking from "required from here":error: static assertion failed: result type must be constructible from value type of input range
+means: trying to copy object which is not copyable. constructable-> constructor  issue 
