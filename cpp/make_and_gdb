@@ -17,3 +17,17 @@ add-auto-load-safe-path /home/sugam/Desktop/coding/
 
 3) each project specific folder get's it's own gdbinit, also add there path in ~/.gdbinit:-
     add-auto-load-safe-path /home/sugam/Desktop/coding/GradeManager/
+~
+// gdb commands:-
+break main        # set breakpoint at main
+break file.cpp:10 # set breakpoint at line 10
+run               # start program
+n                 # next — step over
+s                 # step — step into
+finish            # run until current function returns
+continue          # run until next breakpoint
+print s1          # print variable
+info locals       # print all locals
+backtrace         # show call stack
+quit              # exit GDB
+Enter             # repeat last command
