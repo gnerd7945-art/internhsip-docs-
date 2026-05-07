@@ -31,3 +31,33 @@ info locals       # print all locals
 backtrace         # show call stack
 quit              # exit GDB
 Enter             # repeat last command
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+The Project StructureImagine your files are organized like this on your machine:Plaintext/home/mantra/work/mikshi_box/                <-- The Project Root
+├── CMakeLists.txt                          (Parent CMake)
+├── libs/
+│   └── json.hpp                            (The file we want)
+└── source/
+    └── MxService/
+        └── CMakeLists.txt                  (Child CMake)
+Option A: Absolute (Top-Down)
+
+set(LIBS_PATH "${CMAKE_SOURCE_DIR}/libs")
+
+    Pros: Clean and easy to read. No need to count ../ dots.
+
+    Cons: Breaks if you copy the MxService folder into a different project that doesn't have a libs folder at its root.
+
+Option B: Relative (Local View)
+
+set(LIBS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../libs")
+
+    Pros: Portable. You can move the entire project folder anywhere, and the relative distance between files stays the same.
+
+    Cons: Breaks if you move the MxService folder deeper (e.g., to source/interns/sugam/MxService). The ../../ math will no longer reach the root.
+
+Summary Rule
+
+    Use CMAKE_SOURCE_DIR for shared project-wide folders (like your libs). It prevents path calculation errors.
+
+    Use CMAKE_CURRENT_SOURCE_DIR only when you need to find files that live inside the same folder as your CMakeLists.txt.
