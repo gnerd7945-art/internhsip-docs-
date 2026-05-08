@@ -182,6 +182,10 @@ auto next_it = std::next(it,3)// return iterator  3 step forward, does not chang
 
 //common vector usage:-
 vector<bool> used(n,false); // initialize n vector with false value. 
+
+for(const auto&[k,v] :ma){
+int key =k;
+std::vector<int> vec =v;}
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // string 
 std::string name= 'sugam', prefix = sug 
