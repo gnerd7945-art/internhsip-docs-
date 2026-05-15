@@ -1,27 +1,102 @@
-# --- Compiled Binaries & Executables ---
-*
-!*.*
-!*/
-!Makefile
-!CMakeLists.txt
+# =========================
+# Build directories
+# =========================
+build/
+Build/
+cmake-build-*/
+out/
+bin/
+lib/
+.cache/
 
-# Specific common output names
-*.out
-*.exe
-*.app
+# =========================
+# CMake generated files
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
 
-# --- Build Artifacts ---
+# CTest
+Testing/
+CTestTestfile.cmake
+DartConfiguration.tcl
+
+# =========================
+# Make / Ninja / build systems
+# =========================
+Makefile
+*.make
+*.ninja
+.ninja_deps
+.ninja_log
+
+# =========================
+# Object / binary files
+# =========================
 *.o
 *.obj
-*.so
+*.lo
+*.la
 *.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.bin
 
-# --- Database Files ---
+# Dependency files (gcc/clang)
+*.d
+*.o.d
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Debug / profiling
+# =========================
+*.gcno
+*.gcda
+*.gcov
+*.prof
+*.profraw
+*.profdata
+
+# =========================
+# Core dumps
+# =========================
+core
+*.core
+
+# =========================
+# Databases / runtime
+# =========================
 *.db
 *.sqlite
 
-# --- IDE & System Files ---
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
-.DS_Store
 *.swp
+*.swo
+*~
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Misc
+# =========================
+*.tmp
+*.bak
