@@ -13,7 +13,7 @@ if structre empty-> min = val_to_be_pushed
 
 // entire logic is to write value less then current min in temrs of current min( 2*value- current_min) so we can restore it later if value flag(*value- current_min) popped. 
       ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-2) 
+2) Whenever deep copy in qs, use map. 
 
 
 
