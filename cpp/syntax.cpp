@@ -190,7 +190,7 @@ std::vector<int> vec =v;}
 // string 
 std::string name= 'sugam', prefix = sug 
 name.starts_with(prefix);// t/f 
-name.substr(1,3) //uga, start at 1 position and take 3 char  
+name.substr(1,3) //uga, start at 1 position and take 3 char   // s.substr(start,length) 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
