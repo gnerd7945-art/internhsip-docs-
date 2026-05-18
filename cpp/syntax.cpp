@@ -257,6 +257,8 @@ int main() {
 4) if in param you do: const class_name& obj. Then inside that function(which uses that params)  you can only call const function  of that obj, func() const allow func() to be called if obj const 
 5) almost always if return type  is private reference, make it const in function declaration or make it const if function is const, return by value, then const not needed. 
 6) unordered_map can't be sorted.Convert it to vector of pairs and sort them.  
+7) adding space:   std::cout<<longest<<" " ;
+
 
 
 
