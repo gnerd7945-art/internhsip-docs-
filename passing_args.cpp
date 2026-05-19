@@ -177,3 +177,20 @@ Student::Student(std::string s, std::vector<Grade> g) : _name(std::move(s)),_lis
 char* buffer = new char[sizeof(MyClass)]; // Pre-allocated memory
 MyClass* obj = new (buffer) MyClass();    // Placement new to exactly preallocated memory. 
 // we can overlaod new too. 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //basic pointer logic:-
+    Stack Memory
+─────────────────────────────────────
+x  at 0x1000 : 42     int x =42;
+p  at 0x2000 : 0x1000 int* p =&x;
+q  at 0x3000 : 0x1000 int* q = p;
+─────────────────────────────────────
+
+| Expression | Meaning                     | Value    |
+| ---------- | --------------------------- | -------- |
+| `p`        | Address stored in pointer   | `0x1000` |
+| `*p`       | Object at that address      | `42`     |
+| `&p`       | Address of pointer variable | `0x2000` |
+
