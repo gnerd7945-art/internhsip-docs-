@@ -213,7 +213,7 @@ public:
 
     void simulateEvent() {
         if (handler) {
-            handler(42);  // <-- lambda called here
+            handler(42);  // <-- lambda called here, () is overloaded in lambda class 
         }
     }
 };
