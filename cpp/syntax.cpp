@@ -55,6 +55,7 @@ void Robot::sayHello() {
 
 
 3) some imp funcitons:-
+    std::isdigit(ch)// include <cctype> 
     std::to_string(some_int) // convert ot string
     std::stoi(some string) // convert to int 
     std::all_of(vec.begin(),vec.end(),::logic) // returns true if all elements satisfy 3rd arg logic. 3rg could be lambda too , lambda should return  bool 
