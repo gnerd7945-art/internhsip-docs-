@@ -1,1 +1,7 @@
-grep -rnw --exclude-dir={.git,node_modules,vendor} --include="*.cpp" "your_search_term" .
+1)grep -rnw --exclude-dir={.git,node_modules,vendor} --include="*.cpp" "your_search_term" .    //ignore w if not want exact. 
+2)grep -rnE --exclude-dir={.git,node_modules,vendor} --include="*.cpp" "init.*Data" //  initiazeData, intialData etc would be searched 
+3)grep -rnwE --exclufr-dirs={node_modules} --include= "*.cpp" "auth | key"  // search for both auth or key
+4)grep -rnE \
+  --exclude-dir={node_modules,.git} \
+  --include="*.cpp" \
+  'auth|key|init.*Data|user[0-9]|imp(file|sysfile[0-3])' .   // search for impfile, impsysfile0,impsysfile1 .. , nitiazeData, intialData , user1,user2, auth etc. 
