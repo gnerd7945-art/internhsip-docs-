@@ -34,7 +34,7 @@ If you allocate an array: char* data = new char[10]; -> You must use delete[] da
 12)  in operator/member function , cpp looks at left and right side of it as arg( compiler rewrites function defination and make 1st argument as this), if operator defined in a class , then left side is implictly the object of that class(this). 
     std::cout<<s; => operator<<(cout,s); given << is friend , else would have need to write it as: s<<cout => s.operator<<(std::cout); if dont want friend, define << outside class, use getter function to get daat of class.  
     std::cout << c1; // COMPILER ERROR if  << class mem function. 
-The compiler looks at std::cout (an ostream), sees that it doesn't match the hidden complex* first parameter of your member function, and completely rejects it.
+The compiler looks at std::cout (an ostream obj), sees that it doesn't match the hidden String *this first parameter of your member function, and completely rejects it.
 */ 
 #include<iostream>
 #include<stdexcept>
