@@ -6,10 +6,11 @@ new knowledge:-
 
 3) in charachter array: const char* copies pointer not  data and is acceptable 
 
-4) string s = "sugam" is equivalent to parameter constructor calling, string s = s1 is copy constructor same as string s(s1) you can stop this by doing string(const string& s)=delete;, string s;(defualt constructor)
-then s = s1 is assignemnt operator , string s(std::move(obj)) and string s = std:move(obj) mask permanent object and compiler thinks it has rvalue and look for a constructor that accepts rvalue as input. 
+4) string s = "sugam" is equivalent to parameter constructor calling, string s = s1 is copy constructor same as string s(s1) you can stop this by doing string(const string& s)=delete;, 
+string s(defualt constructor) then s = s1 is assignemnt operator.
+string s(std::move(obj)) and string s = std:move(obj) /func_returning_string() std::move mask permanent object and compiler thinks it has rvalue and look for a constructor that accepts rvalue as input. 
     String("sugam") -> parameterized constructor but rvalue. 
-
+ -> if we define  copy constructor without const, we would no longer be able to copy const object, also move construct cannot be called on const object. 
 5)String(String&& obj) noexcept 
     : data(std::exchange(obj.data, nullptr)),  std::exchange help us take a value and assign different one in single line of code.
       size(std::exchange(obj.size, 0)), 
