@@ -27,11 +27,12 @@ If you allocate an array: char* data = new char[10]; -> You must use delete[] da
    func(const String& val), func("name")-> calls paramterized constructor, if object passed then makes reference, without & if arg passed as object then copy constructor would have been called.  const class_name& val works for other classes/custom classes to when r value or object passed to it. 
    func(String val), func(obj)-> copy constructor is called.
    fuinc(String val), func(std::move(obj))-> move constructor is called 
-8) overload operators cannot be made static    
+8) overload operators cannot be made static     
 9) + has more priority than =, if a=b=c we read right to left
 10) if + is class member function, then s1+ "abc" :  s1.operator+("new string"), "abc"+s1 will fail. thus we use friend function here, which does not belong to this class, s1+"new string": operator+(s1,"new string")
 11) frined class can access internal variables, but of who? since it is global it does not know that and hence a local object needs to be created of the class which uses friend.
-12) Member functions always force their own class object  to be on the left side. in operator, cpp looks at left and right side of it as arg, if operator defined in a class , then left side is implictly the object. 
+12)  in operator/member function , cpp looks at left and right side of it as arg, if operator defined in a class , then left side is implictly the object of that class. 
+    std::cout<<s; => operator<<(cout,s); given << is friend , else would have need to write it as: s<<cout => s.operator<<(std::cout); if dont want friend, define << outside class, use getter function to get daat of class.  
 */ 
 #include<iostream>
 #include<stdexcept>
