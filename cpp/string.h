@@ -31,7 +31,7 @@ If you allocate an array: char* data = new char[10]; -> You must use delete[] da
 9) + has more priority than =, if a=b=c we read right to left
 10) if + is class member function, then s1+ "abc" :  s1.operator+("new string"), "abc"+s1 will fail. thus we use friend function here, which does not belong to this class, s1+"new string": operator+(s1,"new string")
 11) frined class can access internal variables, but of who? since it is global it does not know that and hence a local object needs to be created of the class which uses friend.
-12) Member functions always force their own class object  to be on the left side.
+12) Member functions always force their own class object  to be on the left side. in operator, cpp looks at left and right side of it as arg, if operator defined in a class , then left side is implictly the object. 
 */ 
 #include<iostream>
 #include<stdexcept>
