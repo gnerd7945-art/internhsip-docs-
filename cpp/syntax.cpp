@@ -175,11 +175,8 @@ json.back() // gets last element  in json, back().is_object()// chekc if it is o
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // iterators and vector:-
  std::vector<int>:: iterator it = vec.begin(); auto itn= vec.begin() +5; // random jumps work with vecotr, deque, array
-    std::distance(it,itn) // return elements btw 2 iterators(5) 
- // for map and set:-
-    std::advance(it, 3) // move it 3 steps forward. 
-auto next_it = std::next(it,3)// return iterator  3 step forward, does not change it. 
-    
+    std::distance(it,itn) // return elements btw 2 iterators(5)
+  std::vector<int> :: iterator  it = vec.erase(vec.begin()+2); return iterator next to erased element. 
 
 //common vector usage:-
 vector<bool> used(n,false); // initialize n vector with false value. 
@@ -187,6 +184,12 @@ vector<bool> used(n,false); // initialize n vector with false value.
 for(const auto&[k,v] :ma){
 int key =k;
 std::vector<int> vec =v;}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ // for map and set:-
+    std::advance(it, 3) // move it 3 steps forward. 
+auto next_it = std::next(it,3)// return iterator  3 step forward, does not change it. 
+    
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // string 
 std::string name= 'sugam', prefix = sug 
