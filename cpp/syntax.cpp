@@ -68,6 +68,7 @@ void Robot::sayHello() {
     std::isspace(string/ch); // check if char or string is space. 
     std::getline(read_from_string/ifstream_obj, dump_to_string);
     std::reverse(vec.begin(),vec.end()) // works for vector,queue,list,array,std::string
+    std::alnum(ch) // check if alnum char , std::tolower(ch) // conver to lower 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
     // Remove even numbers
