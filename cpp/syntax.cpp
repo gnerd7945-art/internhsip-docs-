@@ -196,6 +196,8 @@ auto next_it = std::next(it,3)// return iterator  3 step forward, does not chang
 std::string name= 'sugam', prefix = sug 
 name.starts_with(prefix);// t/f 
 name.substr(1,3) //uga, start at 1 position and take 3 char   // s.substr(start,length) 
+const char* c = "hi , you are hi "; 
+c.rfind(c, index); // 13 , index : start searching backward from this index. 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
