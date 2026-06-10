@@ -198,6 +198,9 @@ name.starts_with(prefix);// t/f
 name.substr(1,3) //uga, start at 1 position and take 3 char   // s.substr(start,length) 
 const char* c = "hi , you are hi "; 
 c.rfind(c, index); // 13 , index : start searching backward from this index. 
+std::string id = "bye"
+name.replace(2,3,"hi" + id); // suhibye
+// in substr() and replace() from starting index we start operating
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
