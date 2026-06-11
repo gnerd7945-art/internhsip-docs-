@@ -269,7 +269,7 @@ int main() {
 6) unordered_map can't be sorted.Convert it to vector of pairs and sort them, unordered_map<char,int> map{{'a',1},{'b',2}};
 7) adding space:   std::cout<<longest<<" " ;  normal, not new line: std::cout << "Hello ";
 8)     if (!(ss >> ch)) break; needs checking else ss keep last known value when stream ends. 
-9) no ; in {} for constructor 
+9) no ; in {} for constructor , when overriding a function: returntype func_name(arg) override{};
 
 
 
