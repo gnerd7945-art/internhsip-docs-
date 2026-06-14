@@ -157,12 +157,22 @@ Student::Student(std::string s, std::vector<Grade> g) : _name(std::move(s)),_lis
    -> we have Grade&& rvalue here from step1
 
   2)push_back() calls:-
-   vector invokes rvalue overlaod for push_back(since rvalue is passed): void push_back(Grade&& value);        // push_back overload
-                                                                                           ---> value is a rvalue reference pointing to temp Grade from step1. 
-
+   vector invokes rvalue overlaod for push_back(since rvalue is passed): void push_back(Grade&& value); // push_back overload function called, value-> Grade("science",70)
+                                                                                           
   3) vector allocate memory and uses code:-
   void* memory = /* already allocated by vector */;
-  new (memory) Grade(std::move(value)); // value refers to step1 Grade, consturct at exact memory 
+
+void push_back(Grade&& value) {
+    // 1. 'value' has a name here, so it is an lvalue.Reason: Think about it from a safety perspective: once it is inside push_back, you could hypothetically use value multiple times. If the compiler treated it as an rvalue inside the function, it might accidentally move its data prematurely on line 1, leaving it empty for line 2.
+    
+    // 2. We get the memory location where the new element should go.
+    void* memory = get_next_uninitialized_memory_spot();
+    
+    // 3. We construct the object. 
+    // We MUST use std::move(value) to cast it back to an rvalue
+    // so that the Grade(Grade&&) move constructor is called.
+    new (memory) Grade(std::move(value)); 
+}
 
   4) When the compiler sees new (memory) Grade(std::move(value)), it looks at all available constructors of Grade and picks the best match:-
     Grade(std::string sub, double marks);   // candidate 1
@@ -171,6 +181,8 @@ Student::Student(std::string s, std::vector<Grade> g) : _name(std::move(s)),_lis
     check argumet: std::move(value) generates non const r value , candidate 3 best match, used it to construct object(move constructor)
 
     // all containers try do above 
+Basically what happened above is : temp object formed.. passed by refernece to push_back, push_back calls the move constructor of Grade to construct it in heap( total 2 times constructor called), emplace_back reduce it to 1 time by directly constructing obj in heap. 
+
     --------------------------------------------------------------------------------------------------------------------------
     #include <new> // Required for placement new
 
