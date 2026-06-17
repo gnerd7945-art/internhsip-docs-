@@ -180,11 +180,14 @@ json.back() // gets last element  in json, back().is_object()// chekc if it is o
   std::vector<int> :: iterator  it = vec.erase(vec.begin()+2); return iterator next to erased element. 
 
 //common vector usage:-
-vector<bool> used(n,false); // initialize n vector with false value. 
+1) vector<bool> used(n,false); // initialize n vector with false value. 
 
-for(const auto&[k,v] :ma){
-int key =k;
-std::vector<int> vec =v;}
+2) for(const auto&[k,v] :ma){
+    int key =k;
+    std::vector<int> vec =v;}
+3) std::vector<std::pair<int,int>> vp;
+    vp.push_back({1,2});
+    vp.emplace_back(1,2);
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
  // for map and set:-
