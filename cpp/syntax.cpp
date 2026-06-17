@@ -260,6 +260,34 @@ int main() {
 }
 // auto&&& arg in lambda aloow universal forwarding. 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // varinats:-
+
+    #include<variant>
+#include <iostream>
+#include<string>
+
+int main()
+{
+    std::variant<int,std::string> v;
+    v =10;
+   // std::cout<<v<<std::endl; does not work 
+    std::visit([](auto&& arg)->void{std::cout<<arg<<std::endl;},v); // v passed to arg 
+    v= "hi";
+    if(int* i = std::get_if<int>(&v)){
+        std::cout<<*i<<std::endl;
+    }
+    else if(std::string* s = std::get_if<std::string>(&v)){ // return nullptr if not matched, if cond.  converts it to false 
+        
+        std::cout<<*s<<std::endl;
+    }
+    v = "bye";
+   std::string s =  std::move(std::get<std::string>(v));
+   std::cout<<s<<std::endl;
+   
+    
+    return 0;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
 1) avoid using raw pointer to access value/address of containers. 
 2) variable = (condition) ? value_if_true : value_if_false; // not == btw variable and condition 
