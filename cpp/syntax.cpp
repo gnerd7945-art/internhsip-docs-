@@ -1,3 +1,5 @@
+// project having mini version of current architecture. stateful functors, sateful lambda, std::for_each, callback registry/ virtual inheritance/ dynamic injection. Smart pointeras and weak pointers. 
+
 #include <iostream>
 #include <string>
 1) Inititalization:-
@@ -261,7 +263,34 @@ int main() {
 
     std::cout << "After lambda: " << (up ? "still alive" : "moved away") << '\n';
 }
-// auto&&& arg in lambda aloow universal forwarding. 
+// statefull lambda: basically same as above( capture value and use mutable to add something to it) -> intenrally converts to stateful functors( () overloaded, and also have some attribute where we accumulate argument)
+int total = 0;
+
+// The [total] captures the state, 'mutable' allows the lambda to modify it
+auto accLambda = [total](int value) mutable {
+    total += value;
+    return total;
+};
+
+std::cout << accLambda(5)  << "\n"; // Outputs: 5
+std::cout << accLambda(10) << "\n"; // Outputs: 15
+//  stateful functor example:-
+class Mul{
+public: 
+    int val;
+    Mul(int num):val(num){}
+    void operator()(int element){ //  passed by value 
+     val*=element;
+    }
+ };
+int main(){
+Mul multiplier(10);
+multiplier(3);
+std::vector<int> v={1,2,3,4,5}
+// for_each returns function/ functor passed to it. 
+Mul m = std::for_each(v.begin(),v.end(),Mul(11)); -> Mul(11) creates temp obj and for_each calls obj(v_element) -> () overload gets triggered. , if normal function lambda was there as  3rd arg then func(v_element).
+// same Mul(11) object is paased on each iteration. 
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // varinats:-
 
