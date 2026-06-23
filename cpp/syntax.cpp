@@ -330,6 +330,7 @@ int main()
 7) adding space:   std::cout<<longest<<" " ;  normal, not new line: std::cout << "Hello ";
 8)     if (!(ss >> ch)) break; needs checking else ss keep last known value when stream ends. 
 9) no ; in {} for constructor , when overriding a function: returntype func_name(arg) override{};
+10) std::sort() returns bool, only care about arrangement and not what you are returning: return p1.second> p2.seocnd and not if() return p1.first;
 
 
 
