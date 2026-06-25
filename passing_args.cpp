@@ -182,6 +182,9 @@ void push_back(Grade&& value) {
 
     // all containers try do above 
 Basically what happened above is : temp object formed.. passed by refernece to push_back, push_back calls the move constructor of Grade to construct it in heap( total 2 times constructor called), emplace_back reduce it to 1 time by directly constructing obj in heap. 
+int& a = 20  // error( literal) a non const lvalue refrence cannot bind to r value expression.  thus T&& exist so we dont have to write const t& everythime bcoz const wont let us change value but t&& r =20; then r=30 is ok
+int&& a = 20 // ok , 
+
 
     --------------------------------------------------------------------------------------------------------------------------
     #include <new> // Required for placement new
