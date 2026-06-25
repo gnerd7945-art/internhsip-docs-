@@ -68,7 +68,7 @@ void Robot::sayHello() {
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;}) // return bool , lambda returns bool or any value whihc converts to bool: eg: return x: int-> bool(0=f,else t) 
     std::isspace(string/ch); // check if char or string is space. 
-    std::getline(read_from_string/ifstream_obj, dump_to_string);
+    std::getline(read_from_string/ifstream_obj, dump_to_string);  // std::getline(std::cin>>std::ws,line);
     std::reverse(vec.begin(),vec.end()) // works for vector,queue,list,array,std::string
     std::alnum(ch) // check if alnum char , std::tolower(ch) // conver to lower 
 int main() {
@@ -387,6 +387,7 @@ maxi.empty();
 8)     if (!(ss >> ch)) break; needs checking else ss keep last known value when stream ends. 
 9) no ; in {} for constructor , when overriding a function: returntype func_name(arg) override{};
 10) std::sort() returns bool, only care about arrangement and not what you are returning: return p1.second> p2.seocnd and not if() return p1.first;
+11) cout -> directly display on screen, ostringstream -> build string first, then use it
 
 
 
