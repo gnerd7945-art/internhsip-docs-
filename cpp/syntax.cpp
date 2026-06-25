@@ -319,6 +319,36 @@ int main()
     
     return 0;
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// renoving const_cast,adding const to pointer,:-
+    1) adapting for legvacy_api( removing const from pointer) :-
+    void legacy_c_print(char* str); // Does not modify str, but lacks 'const'
+
+void safe_cpp_print(const std::string& msg) {
+    // legacy_c_print(msg.c_str()); // Compile error: const char* cannot convert to char*
+    
+    // Correct usage: Temporarily strip const safety because we trust the C API
+    legacy_c_print(const_cast<char*>(msg.c_str())); 
+}
+2) adding const in pointer:-
+    const char* getter(char* s) const{
+    return s[5];}
+const char* constgetter(char* s) const{
+return const_cast<const char*>(s[5]); }
+3) problomatic code:-
+    // SAFE: Original object 'x' is mutable
+int x = 42;
+const int& ref = x;
+const_cast<int&>(ref) = 100; // Safe. 'x' is now 100. removes const ref 
+
+// UNDEFINED BEHAVIOR: Original object 'y' is truly read-only
+const int y = 42;
+const int& ref_y = y;
+const_cast<int&>(ref_y) = 100; // CRASH or unexpected behavior! The compiler optimized 'y' into read-only memory.
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // rules:-
 1) avoid using raw pointer to access value/address of containers. 
