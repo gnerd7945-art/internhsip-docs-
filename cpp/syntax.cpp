@@ -346,7 +346,33 @@ const int y = 42;
 const int& ref_y = y;
 const_cast<int&>(ref_y) = 100; // CRASH or unexpected behavior! The compiler optimized 'y' into read-only memory.
 
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //heap and priority queue
+    #include<algorithm>
+    #include<vector>
+    #include<queue>
+    
+    priority_queue<int>maxi;
+maxi.push(x);
+maxi.top();
+maxi.pop();
+maxi.empty();
+2) min heap pq:-
+    priority_queue<int,std::vector<int>,std::greater<int>> pq; -> call same above func
+3) vector and heap:-
+    std::vector<int>  vec{4,7,2,5,9,2,5,2};
+    std::make_heap(vec.begin(),vec.end());
+    vec.push_back(40);
+    std::push_heap(vec.begin(),vec.end());
+    std::cout<<vec.front()<<std::endl;
+    std::pop_heap(vec.begin(),vec.end());
+    vec.pop_back() // not pop as we want last element of vector ( heap switched it with front). 
+4) vectyor and min heap:-
+        make_heap(heap.begin(), heap.end(), greater<int>());
+        push_heap(heap.begin(), heap.end(), greater<int>());
+        pop_heap(heap.begin(), heap.end(), greater<int>());
+        .. rest same
+    
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
