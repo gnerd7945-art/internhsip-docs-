@@ -106,7 +106,7 @@ int main() {
     //std::filesystem:-
     it is a namepsace and not a class
     it is used to create/delete , iterate folder and files 
-    namespace fs= std::filesystem;
+    namespace fs= std::filesystem;  shorting the namespace by creating yet another namespace 
     for(const auto entry&: fs::directory_iterator(parent_folder) // only iterate what's inside this folder in 1 level dont go inside  subfolders
     for(const auto entry& : fs::recusive_directory_iterator(parent_folder){// iterate over sub folder, .path() gives object and .string() converts to string, find() is string method
     if(entry.path().string().find(some_name) != std::string::npos)){
