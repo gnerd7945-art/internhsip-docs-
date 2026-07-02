@@ -127,25 +127,51 @@ int main() {
     return 0;
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------
-The Two-Step Hand-Off( once to get it into the constructor, and once to get it from the constructor's parameter into the class member.)
-Step 1: The Call Site (The "Giveaway")
+// copying and not in constructor:-
+Case 1
+heap hp(std::move(v));
+Constructor:
+heap(std::vector<int> vc) : H(std::move(vc)) {}
 
-You must use std::move when passing the object to the constructor. This converts your variable into an rvalue. 
+Flow:
+v  --moved to -->  vc  --moved to -->  H
 
-std::vector<Grade> myGrades = { {"Math", 95} };
-// HAND-OFF #1: 'myGrades' is moved into the constructor parameter 'g'
-Student st("Alice", std::move(myGrades)); 
+So:
 
-Step 2: The Constructor Definition (The "Takeover")
+copies = 0
+moves  = 2
 
-Inside the constructor, the parameter g is a local variable. Even though it was moved into the function, it is still an "lvalue" (it has a name). To move it from the parameter into your private member _list, you must move it again.
-// HAND-OFF #2: Parameter 'g' is moved into member variable '_list'
-Student::Student(std::string s, std::vector<Grade> g) : _name(std::move(s)),_list(std::move(g)){}
+Case 2
+heap hp(v);
+Constructor:
+heap(std::vector<int>& vc) : H(std::move(vc)) {}
+
+Flow:
+
+vc refers directly to v
+v/vc --moved to --> H
+
+So:
+
+copies = 0
+moves  = 1
 
 
+Case 3
+heap hp(v);             
+heap(std::vector<int> vc) : H(std::move(vc)) {}
+heap hp(std::move(v));  
 
+so:
+copies=1
+move =1
 
+Case 4
+heap hp(std::move(v));  // works, moves v into H
+heap hp(v);             // error bcoz:-
 
+heap(std::vector<int>&& vc) : H(std::move(vc)) {} // no copy constructor defined. ------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 // constructors called step by step:-
 
