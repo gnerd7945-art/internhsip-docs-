@@ -406,6 +406,7 @@ maxi.empty();
 9) no ; in {} for constructor, also attribute order in class should be followed when filling in constructor , when overriding a function: returntype func_name(arg) override{};
 10) std::sort() returns bool, only care about arrangement and not what you are returning: return p1.second> p2.seocnd and not if() return p1.first;
 11) cout -> directly display on screen, ostringstream -> build string first, then use it
+12) we can link libs we want and remove unused one from built binary.
 
 
 
