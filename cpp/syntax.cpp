@@ -153,13 +153,13 @@ return ostream.str() // convert obj mem variable to string
         json["key] = another_json.value("another_key",0) /// assign value at another_key in another_json, if not found then return 0 to beassigned to key. 
         json.contains("key") // return t/f 
 
-        json data = { {"name", "Alice"}, {"stats", {10, 20, 30}} };
         fstream fstream_obj("path to some file);
         json some_json{};
         fstream_obj >> json // dump file content to json 
         json["name'.get<string>(); // gets value and convert
-        
 
+
+        json data = { {"name", "Alice"}, {"stats", {10, 20, 30}} };
     try {
         // Successful access
         std::string name = data.at("name"); 
@@ -176,6 +176,23 @@ return ostream.str() // convert obj mem variable to string
     }
 }
 json.back() // gets last element  in json, back().is_object()// chekc if it is object()
+
+
+// boost json:-
+        auot it = find("name");-=> returns iterator to k-v, value is always std::variant  type wrappper of union , get<> wont work since not exactly variant. 
+        if(it->value.is_string()){ //check
+        std::string(it->value.as_string())//"sugam" but in  boost::json::string ,  value is  variant, as_string() makes  it point to correct type( json::string). 
+}
+
+        to do both simultaneosly:-
+        if ( boost::json::string* str_ptr = it->value().if_string()) // check and convert  to boost::string
+    {
+        std::string my_std_string(str_ptr->c_str()); // fetch and consturct string
+        
+    }
+       
+        
+        
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // iterators and vector:-
  std::vector<int>:: iterator it = vec.begin(); auto itn= vec.begin() +5; // random jumps work with vecotr, deque, array
@@ -295,7 +312,7 @@ Mul m = std::for_each(v.begin(),v.end(),Mul(11)); -> Mul(11) creates temp obj an
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // varinats:-
 
-    #include<variant>
+    #include<>
 #include <iostream>
 #include<string>
 
