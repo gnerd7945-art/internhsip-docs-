@@ -9,3 +9,6 @@
 
 5) grep -rinE  --exclude="*.hpp" --exclude-dir="logs" "tenant_id|device_code" .
 
+6) grep -ri --include="*.cfg" --include="*.yml" "API" data/  // in data folder 
+
+
