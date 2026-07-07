@@ -1,0 +1,29 @@
+
+
+monitor, comm_service are being killed
+
+
+1) int main() {
+    ...
+    return 0;
+} > cpp calls exit(0)/abrupt kill  -> resource is freed, what remains:-
+struct zombie
+{
+    pid;
+    exit_status;
+    cpu_time;
+    uid;
+}
+
+waitpid(0/-1/pid/ <-1, &status, 0,WNOHANG)  //rm zombie, does not matter how child exited. 
+0: current process groupd, -1: any child, pid: specific child, <-1 : specific process group
+&status : kenrel fills it, telling how it exited, later: WIFEXITED(status) -> t/f did it exit normally? 
+0: block main unitl child terminates, WNOHANG: if not exited then dont wait, do other stuff. 
+
+
+kill PID does-> kill(pid,SIGTERM)->  process exit but does first: save files,close sockets,flush logs, notify children,clean up resources
+
+kill -9 PID -> kill(pid,SIGKILL)-> The kernel immediately destroys it,No cleanup, No signal handler.
+
+Any process that exits, no matter how, initially becomes a zombie until its parent (or, if the parent has already exited, the process that adopts it—typically PID 1 or another designated subreaper) successfully calls wait() or waitpid() to collect its termination status. Only then does the kernel remove the final process table entry.
+
