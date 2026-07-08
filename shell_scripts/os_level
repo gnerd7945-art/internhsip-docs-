@@ -1,8 +1,9 @@
+-> // C.O.W:   instead of copying a resource immediately, Linux allows multiple parties to read the same physical memory or disk data block, 
+               only duplicating it when a write occurs
 
 
-monitor, comm_service are being killed
-
-
+            
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1) int main() {
     ...
     return 0;
@@ -25,5 +26,16 @@ kill PID does-> kill(pid,SIGTERM)->  process exit but does first: save files,clo
 
 kill -9 PID -> kill(pid,SIGKILL)-> The kernel immediately destroys it,No cleanup, No signal handler.
 
-Any process that exits, no matter how, initially becomes a zombie until its parent (or, if the parent has already exited, the process that adopts it—typically PID 1 or another designated subreaper) successfully calls wait() or waitpid() to collect its termination status. Only then does the kernel remove the final process table entry.
+Any process that exits, no matter how, initially becomes a zombie until its parent (or, if the parent has already exited, 
+the process that adopts it—typically PID 1 or another designated subreaper) successfully calls wait() or waitpid() to collect 
+its termination status. Only then does the kernel remove the final process table entry.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+signal(SIGCHLD, SIG_IGN); // signal:  tell kernel on how to handle 2nd arg event(how to handle is mentioned as 3rd arg), SIGCHILD: is auto sent to parent process when 
+child changes state( like dies/ resumes)  by kernel and then kernel read signal(),
+SIG_IGN: built-in constant that tells the operating system: "Completely ignore this signal. Do not trigger any custom functions, and do not use the default behavior
+-> Basically  if child chnages state, kernel goes on to tell to parent process, see there is signal() mentioned and read 3rd argument, realises that parent does not care
+and even if child dies then  dont store  zombie. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
