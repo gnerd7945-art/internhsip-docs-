@@ -30,11 +30,40 @@ Any process that exits, no matter how, initially becomes a zombie until its pare
 the process that adopts it—typically PID 1 or another designated subreaper) successfully calls wait() or waitpid() to collect 
 its termination status. Only then does the kernel remove the final process table entry.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-signal(SIGCHLD, SIG_IGN); // signal:  tell kernel on how to handle 2nd arg event(how to handle is mentioned as 3rd arg), SIGCHILD: is auto sent to parent process when 
-child changes state( like dies/ resumes)  by kernel and then kernel read signal(),
-SIG_IGN: built-in constant that tells the operating system: "Completely ignore this signal. Do not trigger any custom functions, and do not use the default behavior
--> Basically  if child chnages state, kernel goes on to tell to parent process, see there is signal() mentioned and read 3rd argument, realises that parent does not care
-and even if child dies then  dont store  zombie. 
+The parent process is represented in kernel memory by a  C struct called a task_struct
+signal(SIGCHLD, SIG_IGN); // signal() function  executes much earlier. When it ran, it made a system call that modified a lookup array inside its (c_->sighand->action[].)
+-> The moment the child process finishes or crashes, the kernel executes do_exit() on behalf of the child.
+-> Inside do_exit(), the kernel transitions to a function called exit_notify(). The kernel follows a memory pointer from the dying child to find its parent's data structure:
+struct task_struct *parent = current->real_parent; in this struct kernel looks at array index reserved for SIGCHLD:-
+struct k_sigaction *action = &parent->sighand->action[SIGCHLD - 1];  //  value at this index is set to SIG_INT by signal,
+-> now kernel runs:-
+if (action->sa.sa_handler == SIG_IGN) {
+    // 1. Mark the child as EXIT_DEAD instead of EXIT_ZOMBIE
+    current->exit_state = EXIT_DEAD;
+    
+    // 2. Immediately call release_task() to erase the child from the process tree
+    release_task(current); 
+    
+    // 3. Skip sending any signal notifications to the parent.
+    return; 
+} 
+else { // if array was unmodified:-
+    // 1. Mark the child as a Zombie
+    current->exit_state = EXIT_ZOMBIE;
+    
+    // 2. Deliver the SIGCHLD signal to the parent's mailbox
+    do_notify_parent(current, current->exit_signal);
+    
+    // 3. Wake up the parent if it is currently sleeping/waiting for a child
+    if (parent->state == TASK_INTERRUPTIBLE) {
+        wake_up_process(parent);
+    }
+->If the parent process was suspended or waiting inside a blocking wait() or waitpid() loop, the kernel flips the parent's state back to "Running" so
+it can immediately wake up and handle the incoming data.
+
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
