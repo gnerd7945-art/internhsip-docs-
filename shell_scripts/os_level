@@ -61,6 +61,13 @@ else { // if array was unmodified:-
 ->If the parent process was suspended or waiting inside a blocking wait() or waitpid() loop, the kernel flips the parent's state back to "Running" so
 it can immediately wake up and handle the incoming data.
 
+nested strucutres:-
+task_struct -> sighand_struct-> k_sigaction struct- we make array of this structure of size 64, and this structre has-> sigaction struct {
+    __sighandler_t sa_handler; // <--- Target reached!
+    unsigned long  sa_flags;
+    // ... rest of the signal masks ...
+};
+
 
 
 
