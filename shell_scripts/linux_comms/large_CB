@@ -30,5 +30,17 @@
     ?!                  -> match except the string following it 
     example: \d+(?!PM)  -> Date: 4 Aug 3PM, 4 matches only. 
     ?<=                 -> lookbehing 
-    example: (?<=\$)\d+ -> Product Code: 1064 Price: $5 , matched $5
+    example: 1)(?<=\$)\d+ -> Product Code: 1064 Price: $5 , matched $5
+             2)ls | grep -iE "gray.*\.pdf$"| xargs rm    // pipe needs to pass to xargs for those commands which dont accept stdin like | for input 
+    Command needing xargs:-
+  1. File Manipulation Commandsrm (Remove files/directories) 
+-> ls | xargs rm 
+-> cat list.txt | xargs -I {} cp {} 
+-> ls *.jpg | xargs -I {} mv {} /images/mkdir
+-> cat folders.txt | xargs mkdir
+-> cat new_files.txt | xargs touch
+   2.Information and Inspection Commandsfile (Determine file type) 
+-> ls | xargs du -sh
+
+    
 
