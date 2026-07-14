@@ -11,4 +11,24 @@
 
 6) grep -ri --include="*.cfg" --include="*.yml" "API" data/  // in data folder 
 
+7) common syntax:-
+    $ = hi$            ->hi at end of line
+    (hi|bye)ppl |right -> hippl, byeppl , right 
+    ^hi                -> start of sentence have hi 
+    (ha)-\1,(haa)-\2   -> ha-ha or haa-haa
+    [0-9]{2,}          -> 10,2026
+    \d                 -> find numbers 
+    \D                  -> find non nums
+    \w                  -> alnum
+    \W                  -> except alnums
+    \s                   -> find space
+    \S                   -> excep space 
+    \b                   -> match from clean new word 
+    ?                   ->  optional match to the left(0 or more )
+    ?=                  -> positive lookahead( what we want should be succedded by whom?)  use () to grp 
+    example: \d+(?=PM)  ->  Date: 4 Aug 3PM, 3PM matches only. 
+    ?!                  -> match except the string following it 
+    example: \d+(?!PM)  -> Date: 4 Aug 3PM, 4 matches only. 
+    ?<=                 -> lookbehing 
+    example: (?<=\$)\d+ -> Product Code: 1064 Price: $5 , matched $5
 
