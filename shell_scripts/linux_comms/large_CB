@@ -32,6 +32,7 @@
     ?<=                 -> lookbehing 
     example: 1)(?<=\$)\d+ -> Product Code: 1064 Price: $5 , matched $5
              2)ls | grep -iE "gray.*\.pdf$"| xargs rm    // pipe needs to pass to xargs for those commands which dont accept stdin like | for input 
+             3) 0-9]*[02468].*[0-9]*[02468] // wrong regex since it let 452 match, where condition was that we needed 2 seprate even nums. 
     Command needing xargs:-
   1. File Manipulation Commandsrm (Remove files/directories) 
 -> ls | xargs rm 
