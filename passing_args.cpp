@@ -160,7 +160,6 @@ moves  = 1
 Case 3
 heap hp(v);             
 heap(std::vector<int> vc) : H(std::move(vc)) {}
-heap hp(std::move(v));  
 
 so:
 copies=1
@@ -170,7 +169,14 @@ Case 4
 heap hp(std::move(v));  // works, moves v into H
 heap hp(v);             // error bcoz:-
 
-heap(std::vector<int>&& vc) : H(std::move(vc)) {} // no copy constructor defined. ------------------------
+heap(std::vector<int>&& vc) : H(std::move(vc)) {} // no copy constructor defined.
+
+intresting case 1
+    struct func
+{
+int& i;
+func(int& i_):i(i_){} // here i gets refrence to i_ since i is declared as refrence. 
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 // constructors called step by step:-
@@ -185,19 +191,17 @@ heap(std::vector<int>&& vc) : H(std::move(vc)) {} // no copy constructor defined
   2)push_back() calls:-
    vector invokes rvalue overlaod for push_back(since rvalue is passed): void push_back(Grade&& value); // push_back overload function called, value-> Grade("science",70)
                                                                                            
-  3) vector allocate memory and uses code:-
-  void* memory = /* already allocated by vector */;
-
-void push_back(Grade&& value) {
+3)void push_back(Grade&& value) {  // AT THIS EXACT STEP NO OBJECT IS CONSTRUCTED, object is passed as r value refrence.IT IS LIKE Grade g; push_back(std::move(g));
     // 1. 'value' has a name here, so it is an lvalue.Reason: Think about it from a safety perspective: once it is inside push_back, you could hypothetically use value multiple times. If the compiler treated it as an rvalue inside the function, it might accidentally move its data prematurely on line 1, leaving it empty for line 2.
     
     // 2. We get the memory location where the new element should go.
-    void* memory = get_next_uninitialized_memory_spot();
+                allocate memory:-
+                void* memory = get_next_uninitialized_memory_spot();
     
     // 3. We construct the object. 
     // We MUST use std::move(value) to cast it back to an rvalue
     // so that the Grade(Grade&&) move constructor is called.
-    new (memory) Grade(std::move(value)); 
+    new (memory) Grade(std::move(value));  // HERE OBJECT CONSTRUCTED. 
 }
 
   4) When the compiler sees new (memory) Grade(std::move(value)), it looks at all available constructors of Grade and picks the best match:-
