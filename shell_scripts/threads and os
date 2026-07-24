@@ -1,0 +1,6 @@
+shared address space-> threads sharing same virtual  memory location-> this location is mapped to actula physical location in RAM using Memort Management Unit. 
+Threads share:-
+1) heap memory 2) global data 3) code 4) open files and network sockets 
+THreads don't share:-
+1) stack 2) registers 3) 
+
