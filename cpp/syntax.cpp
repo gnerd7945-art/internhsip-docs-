@@ -4,8 +4,8 @@
 #include <string>
 1) a++ potfix operator and ++a [refix operator are unary and hence the implicit this pointer is the only argument, and  to differentiate between 
   them: void operator++(int) // means postfix , void operator++() means prefix.
-
-2) some imp funcitons:-
+2) function pointer: int(*ptr)(int,int); ptr = add or &add; int result = (*ptr)(5,2)  or directly: ptr(5,3);
+3) some imp funcitons:-
     std::isdigit(ch)// include <cctype> 
     std::to_string(some_int) // convert ot string
     std::stoi(some string) // convert to int 
