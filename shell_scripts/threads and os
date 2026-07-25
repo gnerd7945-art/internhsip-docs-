@@ -8,10 +8,34 @@ Threads share:-
 threads don't share:-
 1) stack 2) registers 3) 
 
-1)arguments passed to std::thread are copied into internal storage, e target function expecting a reference take refrence of that copied internal storage data not the orignal one
+1)arguments passed to std::thread are copied into internal storage, target function expecting a reference take refrence of that copied internal storage data not the orignal one
 thus it does not actually chnage the data, to make it take the actual one use std::ref(data) in std::thread syntax. 
 
 2)Passing array in std::thread actually passes pointer to first element so if the calling function ends quicker then thread function that complete array is lost apart from 
 first element so when thread function goes to modify/copy it, it can read garbage( thus always convert array to object like vector/string)
 
-3) to pass non static member function of a class: 
+3) copy constructor and copy assignment is deleted in thread class since no 2 object could poin to same thread. If want to chnage current thread object to different:-
+if function return rvalue thread object then no std::move require to chnage ownership to different thread object else required:-
+  std:: thread t = func() or std::thread t = std::move(func()) 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1) to pass non static member function of a class: 
+        class X{
+        public:
+          some_function(int a, bool v){
+              // some logic;
+          };
+        };
+        int main(){
+        X obj;
+          std::thread t(&X::some_function, &obj, 10,true); // executing a member fucntion on object obj. &x:: is not address of class, we are reolving scop (x::func) and 
+        to that func we are adding & for address. & is not necessary since function decays to pointer( x::some_function) works too. 
+        EQUIVALENT LAMBDA CODE:-
+          std::thread t(
+            [&obj]()
+            {
+                obj.process(1, 100);
+            }
+        );
+        }
+
+4) 
