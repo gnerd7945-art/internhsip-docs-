@@ -5,13 +5,7 @@
 1) a++ potfix operator and ++a [refix operator are unary and hence the implicit this pointer is the only argument, and  to differentiate between 
   them: void operator++(int) // means postfix , void operator++() means prefix.
 
-
-2) THREADS:-
-    std:: thread worker(func_name,argument) // thread needs function address and argument seperately.
-
-
-
-3) some imp funcitons:-
+2) some imp funcitons:-
     std::isdigit(ch)// include <cctype> 
     std::to_string(some_int) // convert ot string
     std::stoi(some string) // convert to int 
