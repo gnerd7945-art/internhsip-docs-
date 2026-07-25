@@ -216,6 +216,7 @@ int& a = 20  // error( literal) a non const lvalue refrence cannot bind to r val
 int&& a = 20 // ok , 
 
 
+
     --------------------------------------------------------------------------------------------------------------------------
     #include <new> // Required for placement new
 
@@ -238,4 +239,7 @@ q  at 0x3000 : 0x1000 int* q = p;
 | `p`        | Address stored in pointer   | `0x1000` |
 | `*p`       | Object at that address      | `42`     |
 | `&p`       | Address of pointer variable | `0x2000` |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> refrence cannot be changed. If orignal object is moved, then refrece still poin to orignal object's emty data. Use pointer instead of refrence if want to repoint. 
+
 
