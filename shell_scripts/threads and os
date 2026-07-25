@@ -1,4 +1,7 @@
-shared address space-> threads sharing same virtual  memory location-> this location is mapped to actula physical location in RAM using Memort Management Unit. 
+1)shared address space-> threads sharing same virtual  memory location-> this location is mapped to actula physical location in RAM using Memort Management Unit. 
+
+2) std::bind binds an argument ahead of time to a function:( assume add(int,int) exist) auto f =  std::bind(add,10,std::placeholder::_1); // now f(20) is add(10,20)
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Threads share:-
 1) heap memory 2) global data 3) code 4) open files and network sockets 
@@ -7,6 +10,8 @@ threads don't share:-
 
 1)arguments passed to std::thread are copied into internal storage, e target function expecting a reference take refrence of that copied internal storage data not the orignal one
 thus it does not actually chnage the data, to make it take the actual one use std::ref(data) in std::thread syntax. 
+
 2)Passing array in std::thread actually passes pointer to first element so if the calling function ends quicker then thread function that complete array is lost apart from 
 first element so when thread function goes to modify/copy it, it can read garbage( thus always convert array to object like vector/string)
 
+3) to pass non static member function of a class: 
