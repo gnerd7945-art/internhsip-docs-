@@ -173,7 +173,14 @@ const char* c = "hi , you are hi ";
 c.rfind(c, index); // 13 , index : start searching backward from this index. 
 std::string id = "bye"
 name.replace(2,3,"hi" + id); // suhibye
-// in substr() and replace() from starting index we start operating
+// in substr() and replace() from starting index is INCLUDED
+      //erasing:-
+ str.erase(str.begin()+2) // sugam -> suam
+  auto start = str.begin()+2;
+  auto end = str.begin() +6;
+  str.erase(start,end); // end is excluded
+      // or use index directly:-
+    str.erase(3,5); // in this case start from index 3( INCLUDED) and remove 5 chars not 3-5 index
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
