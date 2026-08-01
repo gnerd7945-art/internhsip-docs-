@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <string>
-1) a++ potfix operator and ++a [refix operator are unary and hence the implicit this pointer is the only argument, and  to differentiate between 
-  them: void operator++(int) // means postfix , void operator++() means prefix.
+1) a++ potfix operator and ++a prefix operator are unary and hence the implicit this pointer is the only argument, and  to differentiate between them: 
+   void operator++(int) // means postfix , void operator++() means prefix.
 2) function pointer: int(*ptr)(int,int); ptr = add or &add; int result = (*ptr)(5,2)  or directly: ptr(5,3);
     &x::some_func // address or pointer to a member function of class x, &some_func // address or pointer to a function 
 3) some imp funcitons:-
@@ -21,6 +21,7 @@
     std::getline(read_from_string/ifstream_obj, dump_to_string);  // std::getline(std::cin>>std::ws,line);
     std::reverse(vec.begin(),vec.end()) // works for vector,queue,list,array,std::string
     std::alnum(ch) // check if alnum char , std::tolower(ch) // conver to lower 
+    pop_back() // vector,string,dequeue , pop() // queue,stack,priority_queue , erase works on all and map,set uses solely erase. 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
     // Remove even numbers
@@ -175,12 +176,14 @@ std::string id = "bye"
 name.replace(2,3,"hi" + id); // suhibye
 // in substr() and replace() from starting index is INCLUDED
       //erasing:-
+  str.pop_back() // remove last element
  str.erase(str.begin()+2) // sugam -> suam
   auto start = str.begin()+2;
   auto end = str.begin() +6;
   str.erase(start,end); // end is excluded
       // or use index directly:-
     str.erase(3,5); // in this case start from index 3( INCLUDED) and remove 5 chars not 3-5 index
+      
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //lambda:-
  some_function([](int x )->{print(x)}) // we pass lambda to it. 
