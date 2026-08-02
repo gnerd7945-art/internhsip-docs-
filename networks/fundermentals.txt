@@ -1,3 +1,39 @@
+// classfull subnetting:-
+class A: 1.0.0.00 - 127.255.255.255 class B: 128.0.0.0 - 191.255.255.255 class C: 192.0.0.0 - 223.255.255.255 class D: 224.0.0.0. - 239.255.255.255 class E: 240.0.0.0-
+A subnet mask tells devices and routers where the Network ID ends and the Host ID begins. 1 tells network bits. 
+         If an IP is 192.168.1.50 with mask 255.255.255.0:
+             Network ID: 192.168.1
+             Host ID: .50
+
+// classless:- (total networking bits: 32) 
+  /24 -> 24 network bits. 8 host bits -> 2^8 ips 
+example:192.168.10.0/28 -> 4 host bits-> 16 ip's: 192.168.10.0 and 192.168.10.16 are reserved as network id and broadcast id,rest: 192.168.10.2- 192.168.10.15 is usable
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Client                                  EC2/Mosquitto
+  │                                           │
+  │                                           │
+  │──── SYN ─────────────────────────────────►│
+  │     Seq = X                               │
+  │                                           │
+  │◄─── SYN + ACK ───────────────────────────│
+  │     Seq = Y                               │
+  │     Ack = X + 1                           │
+  │                                           │
+  │──── ACK ─────────────────────────────────►│
+  │     Seq = X + 1                           │
+  │     Ack = Y + 1                           │
+  │                                           │
+  │                                           │
+  │       TCP CONNECTION ESTABLISHED          │
+  │                                           │
+  │──── MQTT CONNECT ────────────────────────►│
+  │                                           │
+  │◄─── MQTT CONNACK ────────────────────────│
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 Layer 1: Is the server process running?
          │
          ├── Check:
