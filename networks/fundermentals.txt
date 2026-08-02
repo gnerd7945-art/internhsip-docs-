@@ -1,0 +1,242 @@
+Layer 1: Is the server process running?
+         │
+         ├── Check:
+         │   systemctl status mosquitto
+         │   ps aux | grep mosquitto
+         │   docker ps
+         │
+         ├── Typical result:
+         │   Active: active (running)
+         │   Process found
+         │   Container Up
+         │
+         └── Typical errors:
+             systemctl: Unit mosquitto.service could not be found
+             inactive (dead)
+             failed
+             docker: No such container
+             docker: container is not running
+             │
+             ▼
+
+Layer 2: Is the server listening on the expected port?
+         │
+         ├── Check:
+         │   sudo ss -ltnp | grep 1883
+         │   sudo lsof -i :1883
+         │
+         ├── Success:
+         │   LISTEN 0 4096 0.0.0.0:1883
+         │
+         └── Typical errors:
+             (No output)
+             │
+             └── Client-side:
+                 nc: connect to ... port 1883 (tcp) failed:
+                 Connection refused
+             │
+             ▼
+
+Layer 3: Is it listening on the correct interface/IP?
+         │
+         ├── Check:
+         │   sudo ss -ltnp | grep 1883
+         │
+         ├── Good:
+         │   0.0.0.0:1883
+         │   [::]:1883
+         │
+         ├── Localhost only:
+         │   127.0.0.1:1883
+         │
+         └── Typical client-side error:
+             nc -vz 3.108.63.85 1883
+             Connection refused
+             OR
+             Connection timed out
+             (depending on firewall/network configuration)
+         │
+         ▼
+
+Layer 4: Is Docker networking configured correctly?
+         - Port publishing (-p HOST:CONTAINER)
+         - Docker bridge/network configuration
+         - Container IP and routing
+         - Applies primarily to bridge/non-host networking
+         │
+         ├── Check:
+         │   docker ps
+         │   docker port <container>
+         │   docker inspect <container>
+         │
+         ├── Good:
+         │   0.0.0.0:1883->1883/tcp
+         │
+         └── Typical errors:
+             docker: Error response from daemon:
+             driver failed programming external connectivity
+             
+             bind: address already in use
+             
+             Connection refused
+             
+             Connection timed out
+         │
+         ▼
+
+Layer 5: Can the client route packets to the server's
+         IP/network?
+         - Client has a valid route
+         - Intermediate routers have a route
+         - Server has a valid return route
+         │
+         ├── Check:
+         │   ip route
+         │   ip route get 3.108.63.85
+         │   traceroute 3.108.63.85
+         │   tracepath 3.108.63.85
+         │
+         └── Typical errors:
+             Network is unreachable
+             No route to host
+             Connection timed out
+             Destination Host Unreachable
+         │
+         ▼
+
+Layer 6: Does the AWS Network ACL allow the traffic?
+         - Subnet-level filtering
+         - Applies to inbound and outbound traffic
+         │
+         ├── Check:
+         │   AWS VPC → Network ACLs
+         │
+         └── Typical client-side errors:
+             Connection timed out
+             
+             No route to host
+             
+             (Often no explicit error because NACL
+              silently drops the packet)
+         │
+         ▼
+
+Layer 7: Does the AWS Security Group allow the traffic?
+         - EC2 network-interface-level filtering
+         - Additional filtering for the individual EC2 instance
+         │
+         ├── Check:
+         │   AWS EC2 → Security Groups
+         │
+         └── Typical client-side errors:
+             Connection timed out
+             
+             (Usually no explicit "Security Group
+              denied" message is sent to the client)
+         │
+         ▼
+
+Layer 8: Does the Linux firewall allow the traffic?
+         - UFW
+         - nftables
+         - iptables
+         - EC2 OS-level filtering
+         │
+         ├── Check:
+         │   sudo ufw status
+         │   sudo nft list ruleset
+         │   sudo iptables -L -n -v
+         │
+         └── Typical client-side errors:
+             Connection timed out
+             
+             Connection refused
+             
+             (Depends on whether firewall
+              DROP or REJECT is configured)
+         │
+         ▼
+
+Layer 9: Does the TCP connection establish?
+         - TCP SYN
+         - TCP SYN-ACK
+         - TCP ACK
+         │
+         ├── Check:
+         │   nc -vz 3.108.63.85 1883    // check if particular port is opened? 
+         │   tcpdump -ni any tcp port 1883
+         │
+         ├── Success:
+         │   Connection to 3.108.63.85 1883
+         │   port [tcp/*] succeeded!
+         │
+         ├── TCP handshake:
+         │   Client → Server: SYN
+         │   Server → Client: SYN-ACK
+         │   Client → Server: ACK
+         │
+         └── Typical errors:
+             Connection refused
+             
+             Connection timed out
+             
+             No route to host
+         │
+         ▼
+
+Layer 10: Is the application protocol working?
+          - MQTT CONNECT
+          - MQTT CONNACK
+          - Authentication
+          - Authorization
+          - Topic ACLs
+          │
+          ├── Check:
+          │   mosquitto_sub -h 3.108.63.85 \
+          │       -p 1883 \
+          │       -t "jsw/test/connectivity" \
+          │       -d
+          │
+          ├── TCP works but MQTT fails:
+          │   Connection Refused: bad user name or password
+          │   Connection Refused: not authorised
+          │   Connection Refused: identifier rejected
+          │
+          ├── MQTT authentication succeeds:
+          │   CONNACK received
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+types of error:-
+1) Connection timed out means:
+The TCP connection attempt did not receive the expected response within the timeout period.
+The client expects either:
+SYN-ACK   → "Yes, TCP connection can be established"
+or:
+RST       → "I am reachable, but this port is refused"
+ The cause could be:
+AWS Security Group silently dropping the packet
+AWS Network ACL dropping it
+1) Linux firewall dropping it
+2) Routing problem / blackhole
+3) Server is down
+4) NAT problem
+5) Packet is going somewhere unexpected
+6) Server receives it but the response cannot return
+-> Check the intermediate path
+  Use:
+  traceroute 3.108.63.85
+
+2) connection refused:-
+The destination IP is reachable, but no TCP service is accepting connections on that port."
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// mq-debug:-
+mosquitto -v // see mqtt logs if someone already lsitining to mq
+got:-
+Opening ipv4 listen socket on port 1883.
+Error: Address already in use
+we did: sudo ss -ltnp 'sport = :1883' to check who is using and got mqtt , thus already is broker is running. 
+
+to check broker logs:-
+sudo journalctl -u mosquitto -f
+
+
+          
