@@ -247,6 +247,9 @@ Layer 10: Is the application protocol working?
           │
           ├── MQTT authentication succeeds:
           │   CONNACK received
+
+-> check you public ip: curl ifconfig.me 
+-> if https is restricted: dig @resolver4.opendns.com myip.opendns.com +short
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 types of error:-
 1) Connection timed out means:
@@ -280,6 +283,13 @@ we did: sudo ss -ltnp 'sport = :1883' to check who is using and got mqtt , thus 
 
 to check broker logs:-
 sudo journalctl -u mosquitto -f
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------//HOW VIRTUAL FIREWALL WORK:-
+1) The physical network card (NIC) receives the electrical signal and copies the data packet into the server's system RAM.Then the The NIC driver hands the packet to the Linux kernel network stack. The kernel creates a virtual bridge (usually named docker0), which acts like a virtual network switch inside RAM. 
+2) docker uses host linux's kernel firewall called iptables or nftables.
+3) The kernel has specific hooks (called Netfilter) that look at packets after they enter the network card but before they reach any application or Docker container.
+4) When you start Docker, it automatically writes invisible rules into these kernel hooks.
+5) As the packet moves through RAM toward the virtual bridge (docker0), the kernel evaluates Docker's rules. If a rule says "Block Port 8080 for Container A," the kernel deletes the packet from RAM right there.
 
 
           
