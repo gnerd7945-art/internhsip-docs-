@@ -52,3 +52,6 @@ systemctl and journalctl manage and monitor the entire operating system and prim
 3) Stop service: sudo systemctl stop mediamtx
 4) Restart service: sudo systemctl restart mediamtx
 
+-> nohup ./mediamtx > mediamtx.log 2>&1 &  // ./m > m.log means redirect '1'(stout) to -> keep it running in bg 
+
+
