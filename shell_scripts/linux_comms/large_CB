@@ -42,6 +42,13 @@
 -> cat new_files.txt | xargs touch
    2.Information and Inspection Commandsfile (Determine file type) 
 -> ls | xargs du -sh
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    
+daemons: longs running system service( process) in bg
+systemctl and journalctl manage and monitor the entire operating system and primarily used to control daemons. 
+
+1) Check status: sudo systemctl status mediamtx
+2) View logs: sudo journalctl -u mediamtx -f
+3) Stop service: sudo systemctl stop mediamtx
+4) Restart service: sudo systemctl restart mediamtx
 
