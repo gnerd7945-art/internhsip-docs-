@@ -1,59 +1,53 @@
-#include <iostream> 
-#include<vector>
+#include <iostream>
+#include <cstring>
 
-template<typename T>
-class Array{
-    public:
-        std::vector<T> array;
-        T size =0;
-        T sum =0;
+// 1. Generic Function Template
+template <typename T>
+T myMax(T a, T b) {
+    return (a > b) ? a : b;
+}
 
-        Array(std::vector<T>& arr, T s): array(std::move(arr)), size(s){}
+// 2. Template Specialization for const char* (C-strings)
+template <>
+const char* myMax<const char*>(const char* a, const char* b) {
+    return (strcmp(a, b) > 0) ? a : b;
+}
 
-        Array() = default;
+int main() {
+    // Uses the generic template
+    std::cout << myMax(10, 20) << "\n";         // Output: 20
+    std::cout << myMax(3.14, 2.71) << "\n";     // Output: 3.14
 
-        const T& ReturnSum(){
-            for(const T& i: array ){
-                sum+=i;
-            }
-            return sum;
-        } 
-        template<typename U>
-        U test(const U& var);
+    // Uses the specialized template
+    const char* str1 = "apple";
+    const char* str2 = "banana";
+    std::cout << myMax(str1, str2) << "\n";     // Output: banana
+}
 
-};
+#include <iostream>
 
-template<typename T> 
-template<typename U>
-U Array<T>::test(const U& var){
-     std::cout<<var<<std::endl;
-     return var;
-        }
-
-        // class template specialization 
-
-template<>
-class Array<bool> {
+// 1. Generic Class Template
+template <typename T>
+class Printer {
 public:
-    int i;
-    void func(){
-        std::cout<<"hi"<<std::endl;
+    void print(T value) {
+        std::cout << "Generic value: " << value << "\n";
     }
 };
 
-int main(){
-    std::vector<int> v{1,2,3,4,5};
-    std::vector<double> v1{v.begin(),v.end()};
-    Array<int> a(v,v.size());
-    Array<double> b(v1,v1.size());
-    auto r = a.ReturnSum();
-    auto r1 = b.ReturnSum();
+// 2. Class Specialization for bool
+template <>
+class Printer<bool> {
+public:
+    void print(bool value) {
+        std::cout << "Bool value: " << (value ? "true" : "false") << "\n";
+    }
+};
 
-    bool var = a.test(true);
-    std::cout<<var<<"\n";
-    std::cout<<r<<r1<<std::endl;
+int main() {
+    Printer<int> intPrinter;
+    intPrinter.print(42);         // Output: Generic value: 42
 
-    Array<bool> ba;
-    ba.func();
-    return 0;
+    Printer<bool> boolPrinter;
+    boolPrinter.print(true);       // Output: Bool value: true
 }
