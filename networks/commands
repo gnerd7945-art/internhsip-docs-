@@ -1,0 +1,29 @@
+2) ip address // detaild ip address and interface. 
+
+3) ip link // interface state 
+
+4) ip -br address // compact 
+
+5) ip -s link // stats
+--------------------------------------------------------------------------------------------------------------------------------------------
+6) ip route: find default gateway and routing table
+
+7) ip route get IP : path fro destination taken,
+---------------------------------------------------------------------------------------------------------------------------------------------
+8) ping IP : icmp msg, ping -I  etho ICMP from specifi interface.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+9) dig google.com: detailed dns query. 
+
+10)dig +short google.com: just ip of domain
+
+11)ss -ltnp: port info like state, current queue, max size of queue, local port,peer port, process using port, ss-lunp for udp 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+12)nc -vz IP PORT : tcp connection to specific port, nc -vzu for udp
+
+in Server do:
+ nc -lv 9000
+On Client do:
+ nc -v <server-ip> 9000
+Then type:
+ hello
+You can literally observe TCP application data travelling between machine
