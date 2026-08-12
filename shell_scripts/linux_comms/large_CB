@@ -54,4 +54,6 @@ systemctl and journalctl manage and monitor the entire operating system and prim
 
 -> nohup ./mediamtx > mediamtx.log 2>&1 &  // ./m > m.log means redirect '1'(stout) to -> keep it running in bg 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+cp -rf temp/models/* models/  } recusive and force copy all file/folder inside temp/models and replaces existing same name ones in models/( not * in dest.) 
