@@ -74,18 +74,23 @@ int main() {
         entry.is_regular_file()// txt,json,mp4, not: directory,symlink,sockets 
  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
 // chrono:-
-const auto now = std::chrono::system_clock::now() // advance  math time ( huge integer) representing tick from jan1, 1970
-std::time_t now_time = std::chrono::system_clock::to_time_t(now) // represent seconds ( looses some micro/nano seconds) from 1970 to now. std::time_t is middleperson which is required to talk with other tools, as they dont  understands chrono.  std::chrono::system_clock::to_time_t is required as it acknoweldges that you are okay with loosing nano seconds of time 
-std::tm t{} // a strcut which holds time in month,year,day var 
-add value to struct:-
-#if defined(_WIN32)
-    gmtime_s(&t, &nowTime); // Windows, use localtime_r/s for local , r and s makes it thread_safe. 
-#else
-    gmtime_r(&t, &timeStruct); // Linux/Mac
-#endif
-std::ostringstream ostream; 
-ostream<< std::put_time(&t, "%Y-%m-%d %H:%M:%S"); // put time converts struct data to date format
-return ostream.str() // convert obj mem variable to string 
+int main() {
+    // 1. Get current time point
+    const auto now_time = std::chrono::system_clock::now(); // highly precise but not human-readable.( in ticks since 1970
+    // 2. Convert to time_t (seconds since epoch)
+    std::time_t seconds_time = std::chrono::system_clock::to_time_t(now_time);// time_t for converting ticks to seconds( looses some microseconds
+    // 3. Initialize tm struct
+    std::tm t{}; // special structre to hold time for humand readable
+    // 4. Thread-safe conversion to UTC (Linux specific)
+    gmtime_r(&seconds_time, &t); 
+    // 5. Create string stream
+    std::ostringstream ostream; 
+    // 6. Format the time
+    ostream << std::put_time(&t, "%Y-%m-%d %H:%M:%S"); 
+    // Print and return
+    std::cout << ostream.str() << '\n';
+    return 0; 
+}
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // function pointers:-
     void hello(){
