@@ -62,8 +62,7 @@ int main() {
     a.external_fun(9);    // Deduces U = int
     return 0;
 }
-// showcase of metaprogramming to make calculation at compile time.
-// General template (recursive step)
+-> // showcase of metaprogramming to make calculation at compile time.
 template <int N>
 struct DotProduct {
     static inline int calculate(int* a, int* b) {
@@ -85,6 +84,29 @@ int a[] = {1, 2, 3};
 int b[] = {4, 5, 6};
 // The '3' is passed as a compile-time template parameter
 int val = DotProduct<3>::calculate(a, b);
+
+-> //showcasing simplification done by constexpr for same above
+#include <iostream>
+constexpr int dot_product(const int* a, const int* b, int size) {
+    int result = 0;
+    for (int i = 0; i < size; ++i) {
+        result += a[i] * b[i];
+    }
+    return result;
+}
+
+int main() {
+    // Arrays must be constexpr to be evaluated at compile time
+    constexpr int a[] = {1, 2, 3};
+    constexpr int b[] = {4, 5, 6};
+    
+    // The compiler runs the loop internally and replaces this with '32'
+    constexpr int val = dot_product(a, b, 3);
+    
+    std::cout << val << '\n';
+    return 0;
+}
+
 /*
 1) templates were used before constexpr to evaluate code logic at compile time using recisve metaprogramming. 
 2) You are reading the Derived<T> class for the very first time (Phase 1). You don't know what T is yet.
