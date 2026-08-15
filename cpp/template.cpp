@@ -1,3 +1,6 @@
+// metaprogramming in cpp: programming technique where you write code that generates, or optimizes other code at compile time.For example:
+    The compiler generates sequential, hardcoded instructions without any jump instructions or loop counters.
+
 // class -> blueprint for creating object ( compiles code of class) , class template-> blueprint of creating class. ( does not compile the class code until  object of it is instantiated)
 // template member function code is compiled  by compiler  only  when function is called or used. 
 #include <iostream>
@@ -59,8 +62,32 @@ int main() {
     a.external_fun(9);    // Deduces U = int
     return 0;
 }
+// showcase of metaprogramming to make calculation at compile time.
+// General template (recursive step)
+template <int N>
+struct DotProduct {
+    static inline int calculate(int* a, int* b) {
+        // Multiply current index, then recursively call N-1
+        return (a[N - 1] * b[N - 1]) + DotProduct<N - 1>::calculate(a, b);
+    }
+};
+
+// Base case (stops the recursion)
+template <>
+struct DotProduct<0> {
+    static inline int calculate(int* a, int* b) {
+        return 0;
+    }
+};
+
+// Usage:
+int a[] = {1, 2, 3};
+int b[] = {4, 5, 6};
+// The '3' is passed as a compile-time template parameter
+int val = DotProduct<3>::calculate(a, b);
 /*
-1) You are reading the Derived<T> class for the very first time (Phase 1). You don't know what T is yet.
+1) templates were used before constexpr to evaluate code logic at compile time using recisve metaprogramming. 
+2) You are reading the Derived<T> class for the very first time (Phase 1). You don't know what T is yet.
 
     You see the call to sayHello(). You look at the primary Base<T> and think: "Well, the primary Base has a sayHello(). Should I just connect this function call to that one?"
     
@@ -73,7 +100,7 @@ int main() {
     Now T is bool. Derived<bool> inherits from Base<bool>. But wait—Base<bool> doesn't have a sayHello() function!
     If the compiler had aggressively locked in the sayHello() function during Phase 1 based on the primary template, it would generate corrupted code for Derived<bool>.
 
-2)-> enum var/ const static var or inline static var  in a class/struct are STATIC CONST( except for inline)  i.e no object initalization needed for using them(
+3)-> enum var/ const static var or inline static var  in a class/struct are STATIC CONST( except for inline)  i.e no object initalization needed for using them(
     cout<< A::a<<'\n'; is enough) , const staic are immutable whereas inline staic are mutable and follows ODR(one defination rule)->there is only a single instance of
      a var  shared across all translation units (.cpp files).
   -> static var in a function or outside,  inside a clas is initialized once( inside function one is only initalized the very first time fucntion is called)
@@ -82,6 +109,6 @@ int main() {
       different cpp file by extern keyword)).
   -> static vs inline staic-> linker behanves differently( stsaic is declaration only and required out of line defination whereas inline is declarationa nd defincation 
       in single line.Linker in case of inline let 2 seprate cpp file def and dec inline var as weak sybol and combine them as one.( chane in var in 1 cpp changes in another).
-    
+
 
 */
