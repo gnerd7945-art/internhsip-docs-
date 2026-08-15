@@ -27,3 +27,15 @@ profile.protocol = "rtmp";
 profile.name = "rtmp_tcp";
 profile.cameraTransport = "tcp";
 profile.ffmpegRtspTransport = "tcp";
+---------------------------------------------------------------------------------------------------------------------------------------
+enum class DeviceState { IDLE, CONNECTING, ACTIVE, ERROR };
+
+void handleState(DeviceState state) {
+    switch (state) {
+        using enum DeviceState; // Introduces identifiers locally
+        case IDLE:       /* ... */ break;
+        case CONNECTING: /* ... */ break;
+        case ACTIVE:     /* ... */ break;
+        case ERROR:      /* ... */ break;
+    }
+}
