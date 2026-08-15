@@ -84,7 +84,7 @@ add value to struct:-
     gmtime_r(&t, &timeStruct); // Linux/Mac
 #endif
 std::ostringstream ostream; 
-ostream<< std::put_time(&t, "format"); // put time converts struct data to date format
+ostream<< std::put_time(&t, "%Y-%m-%d %H:%M:%S"); // put time converts struct data to date format
 return ostream.str() // convert obj mem variable to string 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // function pointers:-
