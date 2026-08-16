@@ -16,6 +16,7 @@
     std::find(vec.begin(),vec.end(),value)//  returns iterator to first occurance. or end() 
     std::transform(vec.begin(), vec.end(),another_vec.begin(),[](int& a)->int{re turn logic});// change range based loop with some logic or to a different container. It does element wise transfomration(lambda takes one input)
     std::count(str.begin(),str.end(),target) // workd for vector, list .. any iterator class. 
+    std::count_if(str.begin(),str.end(),::logic) // ex:  case insensitive count.
     std::optional<data type> var; 
     std::any_of(vec.begin(),vec.end(),[](int& i)->int{return i%2==0;}) // return bool , lambda returns bool or any value whihc converts to bool: eg: return x: int-> bool(0=f,else t) 
     std::isspace(string/ch); // check if char or string is space. 
