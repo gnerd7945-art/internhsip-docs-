@@ -1,6 +1,8 @@
 1)shared address space-> threads sharing same virtual  memory location-> this location is mapped to actula physical location in RAM using Memort Management Unit. 
 
 2) std::bind binds an argument ahead of time to a function:( assume add(int,int) exist) auto f =  std::bind(add,10,std::placeholder::_1); // now f(20) is add(10,20)
+3) mutex -> who is allowed to access data. 
+4) conditional variable-> when should a thread wake up and try to access it. 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Threads share:-
