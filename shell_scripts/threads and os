@@ -2,7 +2,7 @@
 
 2) std::bind binds an argument ahead of time to a function:( assume add(int,int) exist) auto f =  std::bind(add,10,std::placeholder::_1); // now f(20) is add(10,20)
 3) mutex -> who is allowed to access data. 
-4) conditional variable-> when should a thread wake up and try to access it. 
+4) conditional variable-> when should a thread wake up and try to access it. so if thread have lock but no condition met, it does not try to do release-acquire cycle, insted sleep.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Threads share:-
