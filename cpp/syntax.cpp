@@ -23,6 +23,7 @@
     std::getline(read_from_string/ifstream_obj, dump_to_string);  // std::getline(std::cin>>std::ws,line);
     std::reverse(vec.begin(),vec.end()) // works for vector,queue,list,array,std::string
     std::alnum(ch) // check if alnum char , std::tolower(ch) // conver to lower 
+    std::max_element(nums.begin(),nums.end()) -> return iterator to max
     pop_back() // vector,string,dequeue , pop() // queue,stack,priority_queue , erase works on all and map,set uses solely erase. 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5, 6};
