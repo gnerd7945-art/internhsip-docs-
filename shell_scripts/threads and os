@@ -30,8 +30,9 @@ if function return rvalue thread object then no std::move require to chnage owne
         };
         int main(){
         X obj;
-          std::thread t(&X::some_function, &obj, 10,true); // executing a member fucntion on object obj. &x:: is not address of class, we are reolving scop (x::func) and 
+         ->  std::thread t(&X::some_function, &obj, 10,true); // executing a member fucntion on object obj. &x:: is not address of class, we are reolving scop (x::func) and 
         to that func we are adding & for address. & is not necessary since function decays to pointer( x::some_function) works too. 
+         ->  std:: thread t2(&Counter::increment,std::move(ptr)); //(this func has no arg)  same as above instead of &obj , we have ptr, but since it is unique ptr we need to move. 
         EQUIVALENT LAMBDA CODE:-
           std::thread t(
             [&obj]()
