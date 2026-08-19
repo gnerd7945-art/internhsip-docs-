@@ -57,3 +57,4 @@ systemctl and journalctl manage and monitor the entire operating system and prim
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 cp -rf temp/models/* models/  } recusive and force copy all file/folder inside temp/models and replaces existing same name ones in models/( not * in dest.) 
+./a 2>&1 | tee -a logs/test.log } runs binary and redirect its stderr to stdoutput fd, passes thid as input to tee command which branches stdoutput to save in file too, -a is used so it appends and not overwrite. 
