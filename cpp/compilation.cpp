@@ -23,7 +23,8 @@
     this specific .so file. THIS ALL HAPPENS IN RUNTIME.
 
    -> LD_LIBRARY_PATH and the default system paths are used to search for .so files because the binary actually only contains the filename (from the -l flag) and not its path.
-      Basically LD_LIBRARY_PATH plays the same role as L flag to search .so files mentioned in -l flag
+      Basically LD_LIBRARY_PATH plays the same role as L flag to search .so files mentioned in -l flag.But if want to skip LD_LIBRARY_PATH and directly bake adddress of so file in binary itself:-
+      use rpath: the -rpath flag hardcodes a specific search directory into the executable so the runtime loader knows exactly where to find the library without relying on LD_LIBRARY_PATH
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 I)hy does the linker just add references? Why not fetch the complete code?...why wait for loader step? What this linker step actually do in binary?"
