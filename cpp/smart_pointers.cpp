@@ -8,6 +8,6 @@ or maybe simply forgetting to use delete.  the destructor is not called automati
 // although mem allocation is with unique pointer, order is not always l-r: process_data(std::unique_ptr<Document>(new Document()), get_priority_from_server());
 // here new Document ahppended first, get_priority_from_server() gets called ( failed, thus return) cannot execute unique_ptr argument. 
 // make unique is a single function call. it allocates memory and immediately calls unique pointer. 
-// example intialization:     std::unique_ptr<Player> p2 = std::make_unique<Player>("Bob", 200); , std::unique_ptr<Player> p3(new Player("Charlie", 300));
+// example intialization:     std::unique_ptr<Player> p2 = std::make_unique<Player>("Bob", 200); , std::unique_ptr<Player> p3(new Player("Charlie", 300));,     auto ptr1 = std::make_unique<int>(42); // auto heap
 //  int * p = new int(10); // single element 
 
