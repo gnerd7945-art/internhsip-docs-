@@ -1,3 +1,12 @@
+-> PATH: The shell uses PATH to locate ls and other commands. ls-> gets searched in: /usr/local/bin/ls ,/usr/bin/ls , /bin/ls .Suppose it finds it in /usr/bin/ls Then it executes execve("/usr/bin/ls", ...)
+-> Different section in library:-
+      .text section: Contains the executable machine code.
+      .data section: Contains initialized global and static variables.
+      .bss  section: Contains uninitialized global and static variables (occupies no actual space in the file, just allocates memory at runtime).
+      .rodata section: Contains read-only data, like string literals and constant values.
+-> strace ./bin : see exactly where a binary is looking when trying to load a file or shared library at real time. 
+
+  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1) OBJECT file-> Header files contain DECLERATION, and the compiler uses them to validate if a function in the .cpp file follows the correct declaration. 
   It ultimately creates an object file combining the .cpp and header files.
 2) I flag -> affress of header files are added using I flag. 
